@@ -26,16 +26,23 @@ export const Chats: FC = () => {
   return (
     <div className={classes.chats}>
       {chats ? (
-        chats.map((chat) => {
-          return (
-            <ChatItemList
-              title={chat.title}
-              message={chat.last_message.message}
-              avatar={chat.avatar}
-              key={chat.id}
-            />
-          );
-        })
+        chats
+          .sort((a, b) => {
+            if (a.created_at < b.created_at) return 1;
+            else if (a.created_at > b.created_at) return -1;
+            else return 0;
+          })
+          .map((chat) => {
+            return (
+              <ChatItemList
+                title={chat.title}
+                message={chat.last_message.message}
+                avatar={chat.avatar}
+                timestamp={chat.created_at}
+                key={chat.id}
+              />
+            );
+          })
       ) : (
         <ChatsMock />
       )}
