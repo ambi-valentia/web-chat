@@ -1,5 +1,5 @@
 import { FC } from "react";
-import classes from "./header.module.scss";
+import classes from "./UiHeader.module.scss";
 import { ReactComponent as Chat } from "../../assets/Chat.svg";
 
 interface IHeader {
@@ -11,8 +11,8 @@ export const Header: FC<IHeader> = ({ title = "Chat" }: IHeader) => {
     <div className={classes.header}>
       <div className={classes.chats}>All chats</div>
       <div className={`${classes.chats} ${classes.chats__active}`}>
-        <Chat /> 
-        <span>{title}</span> 
+        <Chat />
+        <span>{title}</span>
       </div>
     </div>
   );

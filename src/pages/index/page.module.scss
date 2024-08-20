@@ -1,6 +1,6 @@
 .body {
   display: flex;
-  height: 100dvh;
+  height: calc(100dvh - 64px);
 }
 
 .chatWindow {

@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from "react";
-import { ChatItemList } from "../ChatItemList/chatItemList";
-import classes from "./chats.module.scss";
+import { ChatItemList } from "../ChatItemList/UiChatItemList";
+import classes from "./UiChats.module.scss";
 import { getChatList } from "../../api/chat";
 import { Chat } from "../../constants/types";
 import { ChatsMock } from "./chats.mock";

@@ -1,4 +1,4 @@
-import { ChatItemList } from "../ChatItemList/chatItemList";
+import { ChatItemList } from "../ChatItemList/UiChatItemList";
 
 export const ChatsMock = () => {
   return (

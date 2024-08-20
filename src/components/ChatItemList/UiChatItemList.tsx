@@ -1,6 +1,6 @@
 import { FC } from "react";
 import React from "react";
-import classes from "./chatItem.module.scss";
+import classes from "./UiChatItem.module.scss";
 import { Avatar } from "../Avatar";
 
 interface IChatItemList {
