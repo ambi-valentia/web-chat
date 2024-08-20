@@ -32,6 +32,7 @@ export const Chats: FC = () => {
               title={chat.title}
               message={chat.last_message.message}
               avatar={chat.avatar}
+              key={chat.id}
             />
           );
         })
