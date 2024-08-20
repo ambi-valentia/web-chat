@@ -1,4 +1,4 @@
 export const URLS = {
-    LIST: 'chat.list',
-    MESSAGES: 'chat.get'
+    LIST: 'https://api.lenzaos.com/chat.get?offset=0&limit=20',
+    MESSAGES: 'https://api.lenzaos.com/message.get?offset=0&limit=20&'
 }
