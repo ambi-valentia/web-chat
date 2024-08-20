@@ -1,5 +1,5 @@
-import React from 'react';
-import {PageIndex} from "./pages/index";
+import React from "react";
+import { PageIndex } from "./pages/index";
 
 function App() {
   return (

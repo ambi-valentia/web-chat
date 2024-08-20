@@ -6,5 +6,5 @@ export const getChatList = () => {
 }
 
 export const getMessages = (chatId: string) => {
-    return wrapper("get", URLS.MESSAGES+chatId,undefined,{version: '0.0'})
+    return wrapper("get", URLS.MESSAGES+"chat_id="+chatId,undefined,{version: '0.0'})
 }
