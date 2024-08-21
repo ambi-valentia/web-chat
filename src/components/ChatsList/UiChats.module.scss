@@ -3,6 +3,8 @@
   overflow-y: scroll;
   -ms-overflow-style: none; // browser compatibility
   scrollbar-width: none; // browser compatibility
+
+  outline: none;
 }
 
 .chats::-webkit-scrollbar {

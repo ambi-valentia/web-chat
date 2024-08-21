@@ -19,6 +19,9 @@
 }
 
 .chat_active {
+  &:hover {
+    background: #407ec914;
+  }
   background: #407ec914;
 }
 

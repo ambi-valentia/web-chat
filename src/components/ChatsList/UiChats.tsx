@@ -1,11 +1,16 @@
-import { FC, useEffect, useState } from "react";
+import { Dispatch, FC, SetStateAction, useEffect, useState } from "react";
 import { ChatItemList } from "../ChatItemList/UiChatItemList";
 import classes from "./UiChats.module.scss";
 import { getChatList } from "../../api/chat";
 import { Chat } from "../../constants/types";
 import { ChatsMock } from "./chats.mock";
 
-export const Chats: FC = () => {
+interface ChatsProps {
+  active: string;
+  setActive: Dispatch<SetStateAction<string>>;
+}
+
+export const Chats: FC<ChatsProps> = ({ active, setActive }: ChatsProps) => {
   const [chats, setChats] = useState<Chat[]>();
   const [error, setError] = useState<Error>();
 
@@ -33,14 +38,22 @@ export const Chats: FC = () => {
             else return 0;
           })
           .map((chat) => {
+            const isActive = chat.id === active;
             return (
-              <ChatItemList
-                title={chat.title}
-                message={chat.last_message.message}
-                avatar={chat.avatar}
-                timestamp={chat.created_at}
-                key={chat.id}
-              />
+              <div
+                onClick={() => {
+                  setActive(chat.id);
+                }}
+              >
+                <ChatItemList
+                  title={chat.title}
+                  message={chat.last_message.message}
+                  avatar={chat.avatar}
+                  timestamp={chat.created_at}
+                  active={isActive}
+                  key={chat.id}
+                />
+              </div>
             );
           })
       ) : (
