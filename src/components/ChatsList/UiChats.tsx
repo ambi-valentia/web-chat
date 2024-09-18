@@ -9,7 +9,7 @@ import { setChat } from "../../store/reducer.slice";
 
 interface ChatsProps {
   active: string;
-  setActive: Dispatch<SetStateAction<string>>;
+  setActive: (chatId: string) => void;
 }
 
 export const Chats: FC<ChatsProps> = ({ active, setActive }: ChatsProps) => {

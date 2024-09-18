@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import { Chats, ChatWindow, Header } from "../../components";
 import classes from "./page.module.scss";
 import { useDispatch } from "react-redux";
@@ -9,13 +9,13 @@ import { selectActiveChat } from "../../store/selector";
 
 export const PageIndex: FC = () => {
   const dispatch = useDispatch();
-  const [chat, setChat] = useState("");
-  const [error, setError] = useState<Error>();
   const title = useSelector(selectActiveChat);
+  const chat = useRef("");
+  const [error, setError] = useState<Error>();
 
   useEffect(() => {
     if (chat) {
-      getMessages(chat)
+      getMessages(chat.current)
         .then((result) => {
           dispatch(setMessages(result.response));
         })
@@ -23,7 +23,7 @@ export const PageIndex: FC = () => {
           setError(err);
         });
     }
-  }, [chat]);
+  }, [chat.current]);
 
   if (error) {
     alert(`Error: ${error.message}`);
@@ -34,8 +34,8 @@ export const PageIndex: FC = () => {
     <>
       <Header title={title} />
       <div className={classes.body}>
-        <Chats active={chat} setActive={setChat} />
-        <ChatWindow chatId={chat} />
+        <Chats active={chat.current} setActive={(id) => chat.current = id} />
+        <ChatWindow chatId={chat.current} />
       </div>
     </>
   );
