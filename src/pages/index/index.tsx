@@ -14,7 +14,7 @@ export const PageIndex: FC = () => {
   const [error, setError] = useState<Error>();
 
   useEffect(() => {
-    if (chat) {
+    if (chat.current) {
       getMessages(chat.current)
         .then((result) => {
           dispatch(setMessages(result.response));
