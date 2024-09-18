@@ -44,6 +44,7 @@ export const Chats: FC<ChatsProps> = ({ active, setActive }: ChatsProps) => {
             const isActive = chat.id === active;
             return (
               <div
+                key={chat.id}
                 onClick={() => {
                   setActive(chat.id);
                   dispatch(setChat(chat.title));
