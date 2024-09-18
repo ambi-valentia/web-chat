@@ -17,10 +17,6 @@ export const ChatWindow: FC<ChatWindowProps> = ({
   const dispatch = useDispatch();
   const [newMessage, setNewMessage] = useState("");
 
-  const handleMessageChange = (e: React.FormEvent<HTMLDivElement>) => {
-    if (e.currentTarget.textContent) setNewMessage(e.currentTarget.textContent);
-  };
-
   const messages = useSelector(selectMessages);
 
   const handleSendMessage = () => {
@@ -83,11 +79,10 @@ export const ChatWindow: FC<ChatWindowProps> = ({
             ))}
           </div>
           <div className={classes.input}>
-            <div
+            <textarea
               className={classes.box}
-              contentEditable
-              suppressContentEditableWarning
-              onInput={(e) => handleMessageChange(e)}
+              value={newMessage}
+              onChange={(e) => setNewMessage(e.target.value)}
             />
             <Send className={classes.send} onClick={handleSendMessage}>
               Send
