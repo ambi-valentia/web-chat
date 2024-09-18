@@ -36,8 +36,8 @@ export const Chats: FC<ChatsProps> = ({ active, setActive }: ChatsProps) => {
       {chats ? (
         chats
           .sort((a, b) => {
-            if (a.created_at < b.created_at) return 1;
-            else if (a.created_at > b.created_at) return -1;
+            if (a.last_message.created_at < b.last_message.created_at) return 1;
+            else if (a.last_message.created_at > b.last_message.created_at) return -1;
             else return 0;
           })
           .map((chat) => {
@@ -54,7 +54,7 @@ export const Chats: FC<ChatsProps> = ({ active, setActive }: ChatsProps) => {
                   title={chat.title}
                   message={chat.last_message.message}
                   avatar={chat.avatar}
-                  timestamp={chat.created_at}
+                  timestamp={chat.last_message.created_at}
                   active={isActive}
                   key={chat.id}
                 />
