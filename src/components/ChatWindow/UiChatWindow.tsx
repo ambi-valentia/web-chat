@@ -23,7 +23,7 @@ export const ChatWindow: FC<ChatWindowProps> = ({
     if (newMessage && newMessage?.trim()) {
       dispatch(
         addMessage({
-          message: newMessage,
+          message: newMessage.trim(),
           created_at: new Date().getTime() / 1000,
         })
       );
