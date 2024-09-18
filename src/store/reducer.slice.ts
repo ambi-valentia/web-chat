@@ -5,10 +5,12 @@ export type itemIdx = number;
 
 export interface Slice {
     messages: Message[];
+    activeChat: string;
 }
 
 const initialState: Slice = {
     messages: [],
+    activeChat: 'Chat',
 };
 
 export const slice = createSlice({
@@ -33,9 +35,12 @@ export const slice = createSlice({
                 },
               ];
         },
+        setChat: (state, action: PayloadAction<string>) => {
+            state.activeChat = action.payload;
+        }, 
     }
 });
 
-export const { setMessages, addMessage } = slice.actions;
+export const { setMessages, addMessage, setChat } = slice.actions;
 
 export default slice.reducer;

@@ -4,6 +4,8 @@ import classes from "./UiChats.module.scss";
 import { getChatList } from "../../api/chat";
 import { Chat } from "../../constants/types";
 import { ChatsMock } from "./chats.mock";
+import { useDispatch } from "react-redux";
+import { setChat } from "../../store/reducer.slice";
 
 interface ChatsProps {
   active: string;
@@ -11,6 +13,7 @@ interface ChatsProps {
 }
 
 export const Chats: FC<ChatsProps> = ({ active, setActive }: ChatsProps) => {
+  const dispatch = useDispatch();
   const [chats, setChats] = useState<Chat[]>();
   const [error, setError] = useState<Error>();
 
@@ -43,6 +46,7 @@ export const Chats: FC<ChatsProps> = ({ active, setActive }: ChatsProps) => {
               <div
                 onClick={() => {
                   setActive(chat.id);
+                  dispatch(setChat(chat.title));
                 }}
               >
                 <ChatItemList

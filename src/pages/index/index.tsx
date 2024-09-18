@@ -1,16 +1,17 @@
 import React, { FC, useEffect, useState } from "react";
-import { IPage } from "../../interface/page";
 import { Chats, ChatWindow, Header } from "../../components";
 import classes from "./page.module.scss";
 import { useDispatch } from "react-redux";
 import { getMessages } from "../../api/chat";
 import { setMessages } from "../../store/reducer.slice";
+import { useSelector } from "react-redux";
+import { selectActiveChat } from "../../store/selector";
 
-export const PageIndex: FC<IPage> = (props: IPage) => {
-  const { title } = props;
-  const [chat, setChat] = useState("");
+export const PageIndex: FC = () => {
   const dispatch = useDispatch();
+  const [chat, setChat] = useState("");
   const [error, setError] = useState<Error>();
+  const title = useSelector(selectActiveChat);
 
   useEffect(() => {
     if (chat) {
