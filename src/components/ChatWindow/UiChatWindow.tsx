@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import classes from "./UiChatWindow.module.scss";
 import React from "react";
 import { Avatar, SystemMessage, Time } from "..";
@@ -15,9 +15,15 @@ export const ChatWindow: FC<ChatWindowProps> = ({
   chatId,
 }: ChatWindowProps) => {
   const dispatch = useDispatch();
+  const chatBottomRef = useRef<null | HTMLDivElement>(null);
   const [newMessage, setNewMessage] = useState("");
 
   const messages = useSelector(selectMessages);
+
+  useEffect(() => {
+    if (!newMessage)
+      chatBottomRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [newMessage]);
 
   const handleSendMessage = () => {
     if (newMessage && newMessage?.trim()) {
@@ -80,12 +86,16 @@ export const ChatWindow: FC<ChatWindowProps> = ({
                     ))}
                 </React.Fragment>
               ))}
+            <div ref={chatBottomRef} />
           </div>
           <div className={classes.input}>
             <textarea
               className={classes.box}
               value={newMessage}
               onChange={(e) => setNewMessage(e.target.value)}
+              onKeyDown={(e) =>
+                e.key === "Enter" && !e.shiftKey ? handleSendMessage() : null
+              }
             />
             <Send className={classes.send} onClick={handleSendMessage}>
               Send
