@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/web-chat/static/css/main.d683e532.css",
-    "main.js": "/web-chat/static/js/main.01d44dd4.js",
+    "main.css": "/web-chat/static/css/main.f3d11e3c.css",
+    "main.js": "/web-chat/static/js/main.9066df78.js",
     "static/media/Chat.svg": "/web-chat/static/media/Chat.3cdb5a09c2729e160001f4cb3fad3716.svg",
     "index.html": "/web-chat/index.html",
     "static/media/Check.svg": "/web-chat/static/media/Check.cae923b5a327c3f72fe2bc6137760969.svg",
     "static/media/Filled.svg": "/web-chat/static/media/Filled.28f253e8d279e50bd7ed68871161a3c8.svg",
-    "main.d683e532.css.map": "/web-chat/static/css/main.d683e532.css.map",
-    "main.01d44dd4.js.map": "/web-chat/static/js/main.01d44dd4.js.map"
+    "main.f3d11e3c.css.map": "/web-chat/static/css/main.f3d11e3c.css.map",
+    "main.9066df78.js.map": "/web-chat/static/js/main.9066df78.js.map"
   },
   "entrypoints": [
-    "static/css/main.d683e532.css",
-    "static/js/main.01d44dd4.js"
+    "static/css/main.f3d11e3c.css",
+    "static/js/main.9066df78.js"
   ]
 }
