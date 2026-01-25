@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/web-chat/static/css/main.f3d11e3c.css",
-    "main.js": "/web-chat/static/js/main.9066df78.js",
-    "static/media/Chat.svg": "/web-chat/static/media/Chat.3cdb5a09c2729e160001f4cb3fad3716.svg",
+    "main.css": "/web-chat/static/css/main.1a22d62a.css",
+    "main.js": "/web-chat/static/js/main.e96b0f86.js",
+    "static/media/Chat.svg": "/web-chat/static/media/Chat.5293c5827cc2775a3c58c393e6bfefe9.svg",
     "index.html": "/web-chat/index.html",
-    "static/media/Check.svg": "/web-chat/static/media/Check.cae923b5a327c3f72fe2bc6137760969.svg",
-    "static/media/Filled.svg": "/web-chat/static/media/Filled.28f253e8d279e50bd7ed68871161a3c8.svg",
-    "main.f3d11e3c.css.map": "/web-chat/static/css/main.f3d11e3c.css.map",
-    "main.9066df78.js.map": "/web-chat/static/js/main.9066df78.js.map"
+    "static/media/Check.svg": "/web-chat/static/media/Check.5c59c7f6b82bbf4bc4d865d53656986a.svg",
+    "static/media/Filled.svg": "/web-chat/static/media/Filled.2cdb37f9f0bbf2569f8b7a84facd4971.svg",
+    "main.1a22d62a.css.map": "/web-chat/static/css/main.1a22d62a.css.map",
+    "main.e96b0f86.js.map": "/web-chat/static/js/main.e96b0f86.js.map"
   },
   "entrypoints": [
-    "static/css/main.f3d11e3c.css",
-    "static/js/main.9066df78.js"
+    "static/css/main.1a22d62a.css",
+    "static/js/main.e96b0f86.js"
   ]
 }
