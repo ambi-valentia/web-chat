@@ -1,38 +1,14 @@
-const express = require("express");
-const cors = require("cors");
+import express, { json } from "express";
+import cors from "cors";
+import { generateChats } from "./utils.js";
+import { PORT } from "./config.js";
 
 const app = express();
 app.use(cors());
-app.use(express.json());
+app.use(json());
+app.use(express.static("public"));
 
-const PORT = process.env.PORT || 4000;
-
-let chats = [
-  {
-    id: "1",
-    title: "Alice",
-    private: true,
-    last_message: {
-      created_at: Date.now(),
-      message: "Hey!",
-    },
-    created_at: Date.now(),
-    count_unread: 3,
-    users: [],
-  },
-  {
-    id: "2",
-    title: "Bob",
-    private: true,
-    last_message: {
-      created_at: Date.now(),
-      message: "See you",
-    },
-    created_at: Date.now(),
-    count_unread: 0,
-    users: [],
-  },
-];
+let chats = generateChats(25);
 
 let messages = {
   1: [

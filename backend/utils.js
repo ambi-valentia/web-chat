@@ -1,7 +1,7 @@
-import { Chat } from "../../constants/types";
-import { NAMES, SURNAMES } from "./constants";
+import { NAMES, SURNAMES } from "./constants.js";
+import { BASE_URL } from "./config.js";
 
-const getRandomNumber = (max: number, min: number = 0) =>
+const getRandomNumber = (max, min = 0) =>
   Math.floor(Math.random() * (max - min) + min);
 
 const getRandomName = () => {
@@ -30,7 +30,7 @@ const getRandomDate = () => {
   return new Date(year, month, day).getTime();
 };
 
-function* generateChatInfo(amount: number) {
+function* generateChatInfo(amount) {
   let i = 0;
 
   while (i < amount) {
@@ -40,7 +40,7 @@ function* generateChatInfo(amount: number) {
       created_at: getRandomDate(),
       private: true,
       count_unread: true,
-      avatar: `${process.env.PUBLIC_URL}/${getRandomNumber(19)}.png`,
+      avatar: `${BASE_URL}/${i < 24 ? i : getRandomNumber(24)}.png`,
       last_message: {
         created_at: getRandomDate(),
         message:
@@ -52,5 +52,4 @@ function* generateChatInfo(amount: number) {
   }
 }
 
-export const generateChats = (amount: number): Chat[] =>
-  generateChatInfo(amount).toArray();
+export const generateChats = (amount) => generateChatInfo(amount).toArray();
