@@ -25,7 +25,8 @@ export const ChatWindow: FC<ChatWindowProps> = ({
       chatBottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [newMessage]);
 
-  const handleSendMessage = () => {
+  const handleSendMessage = (e?: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    e?.preventDefault();
     dispatch(
       addMessage({
         message: newMessage.trim(),
@@ -64,14 +65,12 @@ export const ChatWindow: FC<ChatWindowProps> = ({
                   >
                     {!msg.user.you && (
                       <Avatar src={msg.user.avatar} size="sm" />
-                    )}{" "}
+                    )}
                     {msg.message}
                     <Time
-                      time={new Date(msg.created_at)
-                        .toLocaleString("ru")
-                        .replace(/\//g, ".")
-                        .split(",")[1]
-                        .slice(0, 6)}
+                      time={new Date(msg.created_at).toLocaleTimeString("ru", {
+                        timeStyle: "short",
+                      })}
                       my={msg.user.you}
                     />
                   </div>
@@ -86,10 +85,10 @@ export const ChatWindow: FC<ChatWindowProps> = ({
           value={newMessage}
           onChange={(e) => setNewMessage(e.target.value)}
           onKeyDown={(e) =>
-            e.key === "Enter" && !e.shiftKey ? handleSendMessage() : null
+            e.key === "Enter" && !e.shiftKey ? handleSendMessage(e) : null
           }
         />
-        <Send className={classes.send} onClick={handleSendMessage}>
+        <Send className={classes.send} onClick={() => handleSendMessage()}>
           Send
         </Send>
       </div>
