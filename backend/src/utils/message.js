@@ -24,7 +24,7 @@ function* generateMessageInfo(amount, user) {
     const createdAt =
       i === 0
         ? firstCreatedAt.getTime()
-        : Date.now() - getRandomNumber(1200000, 120000);
+        : Date.now() - getRandomNumber(5 * 60 * 60 * 1000, 120000);
     yield {
       id: "m" + Math.random(),
       created_at: createdAt,
@@ -38,7 +38,9 @@ function* generateMessageInfo(amount, user) {
 }
 
 const generateMessages = (user) =>
-  generateMessageInfo(getRandomNumber(10, 1), user).toArray();
+  generateMessageInfo(getRandomNumber(10, 1), user)
+    .toArray()
+    .toSorted((a, b) => a.created_at - b.created_at);
 
 export const generateUserMessages = (users) => {
   const userMessages = new Map();

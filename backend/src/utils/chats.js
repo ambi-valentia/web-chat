@@ -28,17 +28,26 @@ function* generateChatInfo(amount, users, me, userMessages) {
   }
 }
 
-export const generateChats = (users, me, userMessages) =>
-  generateChatInfo(
+export const generateChats = (users, me, userMessages) => {
+  const chats = {};
+  const chatInfo = generateChatInfo(
     users.length ?? CHATS_AMOUNT,
     users,
     me,
     userMessages,
-  ).toArray();
+  );
+
+  for (let i = 0; i < users.length ?? CHATS_AMOUNT; i++) {
+    const curr = chatInfo.next().value;
+    chats[curr.id] = curr;
+  }
+
+  return chats;
+};
 
 export const getChatToUsersMap = (chats, userMessages) => {
   const chatToUsers = {};
-  chats.forEach(
+  Object.values(chats).forEach(
     (chat) => (chatToUsers[chat.id] = userMessages.get(chat.users[0]?.id)),
   );
   return chatToUsers;

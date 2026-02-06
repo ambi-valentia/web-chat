@@ -22,7 +22,7 @@ const chats = generateChats(users, me, userMessages);
 const messages = getChatToUsersMap(chats, userMessages);
 
 app.get("/api/chats", (_, res) => {
-  res.json(chats);
+  res.json(Object.values(chats));
 });
 
 app.get("/api/chats/:id/messages", (req, res) => {
@@ -44,8 +44,12 @@ app.post("/api/chats/:id/messages", (req, res) => {
 
   if (!messages[id]) messages[id] = [];
   messages[id].push(newMessage);
+  chats[id].last_message = {
+    created_at: newMessage.created_at,
+    message: newMessage.message,
+  };
 
-  res.json(newMessage);
+  chats.res.json(newMessage);
 });
 
 app.listen(PORT, () => {
