@@ -17,11 +17,11 @@ export const chatApi = createApi({
     getMessages: build.query<Message[], string>({
       query: chatId => getChatUrl(chatId),
     }),
-    postMessage: build.mutation<Message, {chatId: string; text: string}>({
-      query: ({chatId, text}) => ({
+    postMessage: build.mutation<Message, {chatId: string; text: string; created_at: number}>({
+      query: ({chatId, text, created_at}) => ({
         method: 'POST',
         url: getChatUrl(chatId),
-        body: JSON.stringify(text),
+        body: {text, created_at},
       }),
     }),
   }),

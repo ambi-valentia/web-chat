@@ -1,9 +1,7 @@
 import React, {FC, useEffect, useMemo, useRef, useState} from 'react';
-import {useDispatch} from 'react-redux';
 import {useGetMessagesQuery} from '../../api/chatApi';
-import {ReactComponent as Send} from '../../assets/Filled.svg';
-import {addMessage} from '../../store/reducer.slice';
 import {Avatar, SystemMessage, Time} from '..';
+import {NewMessage} from './UiNewMessage';
 import classes from './UiChatWindow.module.scss';
 
 interface ChatWindowProps {
@@ -11,7 +9,6 @@ interface ChatWindowProps {
 }
 
 export const ChatWindow: FC<ChatWindowProps> = ({chatId}: ChatWindowProps) => {
-  const dispatch = useDispatch();
   const {data: messages} = useGetMessagesQuery(chatId);
   const chatBottomRef = useRef<null | HTMLDivElement>(null);
   const [newMessage, setNewMessage] = useState('');
@@ -20,22 +17,11 @@ export const ChatWindow: FC<ChatWindowProps> = ({chatId}: ChatWindowProps) => {
     if (!newMessage) chatBottomRef.current?.scrollIntoView({behavior: 'smooth'});
   }, [newMessage]);
 
-  const handleSendMessage = (e?: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    e?.preventDefault();
-    dispatch(
-      addMessage({
-        message: newMessage.trim(),
-        created_at: new Date().getTime(),
-      })
-    );
-    setNewMessage('');
-  };
-
   const groupedMessages = useMemo(
     () =>
       messages &&
       Object.groupBy(
-        messages.toSorted(),
+        messages.toSorted((a, b) => a.created_at - b.created_at),
         ({created_at}) =>
           new Date(created_at).toLocaleString('ru').replace(/\//g, '.').split(',')[0]
       ),
@@ -70,17 +56,7 @@ export const ChatWindow: FC<ChatWindowProps> = ({chatId}: ChatWindowProps) => {
           ))}
         <div ref={chatBottomRef} />
       </div>
-      <div className={classes.input}>
-        <textarea
-          className={classes.box}
-          value={newMessage}
-          onChange={e => setNewMessage(e.target.value)}
-          onKeyDown={e => (e.key === 'Enter' && !e.shiftKey ? handleSendMessage(e) : null)}
-        />
-        <Send className={classes.send} onClick={() => handleSendMessage()}>
-          Send
-        </Send>
-      </div>
+      <NewMessage message={newMessage} setMessage={setNewMessage} chatId={chatId} />
     </div>
   );
 };
