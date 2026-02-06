@@ -1,15 +1,10 @@
-import {FC} from "react";
-import {IAvatar} from "./interface";
+import { FC } from "react";
+import { IAvatar } from "./interface";
 import "./avatar.scss";
 
 export const Avatar: FC<IAvatar> = (props: IAvatar) => {
-    const { src, size = 'sm' } = props;
+  const { src, size = "sm" } = props;
+  const className = `component-avatar component-avatar--${size}`;
 
-    const className = `component-avatar component-avatar--${size}`;
-
-    return (
-        <div className={className}>
-            <img className='photo' src={src} alt="avatar" />
-        </div>
-    )
-}
+  return <img className={className} src={src} alt="avatar" />;
+};

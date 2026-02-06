@@ -3,46 +3,33 @@ import classes from "./UiChatItem.module.scss";
 import { Avatar } from "../Avatar";
 
 interface IChatItemList {
+  message: string;
+  avatar: string;
+  onClick: () => void;
   title?: string;
-  message?: string;
-  avatar?: string;
-  timestamp?: number;
   active?: boolean;
+  timestamp?: number;
 }
 
 export const ChatItemList: FC<IChatItemList> = ({
-  title = "Chat",
-  message = "It is my first time like this. Thank you so mush! More then you know. Second line of the message",
-  avatar = "https://avatars.lenzaos.com/oZWbsvwNw-3-.jpg",
-  active = false,
+  avatar,
+  message,
   timestamp,
+  onClick,
+  title = "Chat",
+  active = false,
 }: IChatItemList) => {
   return (
-    <div className={`${classes.chat} ${active ? classes.chat_active : ""}`}>
+    <div
+      className={`${classes.chat} ${active ? classes.chat_active : ""}`}
+      onClick={onClick}
+    >
       <Avatar src={avatar} size="md" />
       <div className={classes.content}>
         <div className={classes.top}>
           <span className={classes.title}>{title}</span>
-          {timestamp &&
-          new Date(timestamp * 1000).setHours(0, 0, 0, 0) ===
-            new Date().setHours(0, 0, 0, 0) ? (
-            <span className={classes.time}>
-              {new Date(timestamp * 1000)
-                .toLocaleString("ru")
-                .split(",")[1]
-                .slice(0, 6)}
-            </span>
-          ) : (
-            timestamp && (
-              <span className={classes.time}>
-                {
-                  new Date(timestamp * 1000)
-                    .toLocaleString("ru")
-                    .replace(/\//g, ".")
-                    .split(",")[0]
-                }
-              </span>
-            )
+          {timestamp && (
+            <span>{new Date(timestamp).toLocaleDateString("ru")}</span>
           )}
         </div>
         <div className={classes.message}>{message}</div>
