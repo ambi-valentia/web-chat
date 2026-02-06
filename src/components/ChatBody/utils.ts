@@ -40,7 +40,7 @@ function* generateChatInfo(amount: number) {
       created_at: getRandomDate(),
       private: true,
       count_unread: true,
-      avatar: `${process.env.PUBLIC_URL}/${getRandomNumber(7)}.png`,
+      avatar: `${process.env.PUBLIC_URL}/${getRandomNumber(19)}.png`,
       last_message: {
         created_at: getRandomDate(),
         message:

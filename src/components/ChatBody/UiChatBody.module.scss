@@ -1,3 +1,8 @@
+.body {
+  display: flex;
+  height: calc(100dvh - 64px);
+}
+
 .chats {
   width: 25%;
 
@@ -9,9 +14,4 @@
 
 .chats::-webkit-scrollbar {
   display: none; // browser compatibility
-}
-
-.body {
-  display: flex;
-  height: calc(100dvh - 64px);
 }
