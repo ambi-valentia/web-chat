@@ -1,5 +1,5 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Chat, Message } from "../constants/types";
+import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {Chat, Message} from '../constants/types';
 
 export type itemIdx = number;
 
@@ -14,7 +14,7 @@ const initialState: Slice = {
 };
 
 export const slice = createSlice({
-  name: "main",
+  name: 'main',
   initialState,
   reducers: {
     setMessages: (state, action: PayloadAction<Message[]>) => {
@@ -25,14 +25,14 @@ export const slice = createSlice({
       action: PayloadAction<{
         message: string;
         created_at: number;
-      }>,
+      }>
     ) => {
-      const { created_at, message } = action.payload;
+      const {created_at, message} = action.payload;
       state.messages = [
         ...state.messages,
         {
           created_at: created_at,
-          user: { you: true },
+          user: {you: true},
           message: message,
           is_new: true,
         },
@@ -44,6 +44,6 @@ export const slice = createSlice({
   },
 });
 
-export const { setMessages, addMessage, setChat } = slice.actions;
+export const {setMessages, addMessage, setChat} = slice.actions;
 
 export default slice.reducer;

@@ -1,6 +1,6 @@
-import { FC } from "react";
-import { Avatar } from "../Avatar";
-import classes from "./UiChatItem.module.scss";
+import {FC} from 'react';
+import {Avatar} from '../Avatar';
+import classes from './UiChatItem.module.scss';
 
 interface IChatItemList {
   message: string;
@@ -16,21 +16,16 @@ export const ChatItemList: FC<IChatItemList> = ({
   message,
   timestamp,
   onClick,
-  title = "Chat",
+  title = 'Chat',
   active = false,
 }: IChatItemList) => {
   return (
-    <div
-      className={`${classes.chat} ${active ? classes.chat_active : ""}`}
-      onClick={onClick}
-    >
+    <div className={`${classes.chat} ${active ? classes.chat_active : ''}`} onClick={onClick}>
       <Avatar src={avatar} size="md" />
       <div className={classes.content}>
         <div className={classes.top}>
           <span className={classes.title}>{title}</span>
-          {timestamp && (
-            <span>{new Date(timestamp).toLocaleDateString("ru")}</span>
-          )}
+          {timestamp && <span>{new Date(timestamp).toLocaleDateString('ru')}</span>}
         </div>
         <div className={classes.message}>{message}</div>
       </div>

@@ -1,27 +1,25 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { Chat, Message } from "../constants/types";
+import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
+import {Chat, Message} from '../constants/types';
 
 const getChatUrl = (chatId: string) => `chats/${chatId}/messages`;
 
 export const chatApi = createApi({
-  reducerPath: "chatApi",
+  reducerPath: 'chatApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:4000/api",
+    baseUrl: 'http://localhost:4000/api',
   }),
-  endpoints: (build) => ({
+  endpoints: build => ({
     getChatList: build.query<Chat[], void>({
-      query: () => "chats",
+      query: () => 'chats',
       transformResponse: (response: Chat[]) =>
-        response.sort(
-          (a, b) => b.last_message.created_at - a.last_message.created_at,
-        ),
+        response.sort((a, b) => b.last_message.created_at - a.last_message.created_at),
     }),
     getMessages: build.query<Message[], string>({
-      query: (chatId) => getChatUrl(chatId),
+      query: chatId => getChatUrl(chatId),
     }),
-    postMessage: build.mutation<Message, { chatId: string; text: string }>({
-      query: ({ chatId, text }) => ({
-        method: "POST",
+    postMessage: build.mutation<Message, {chatId: string; text: string}>({
+      query: ({chatId, text}) => ({
+        method: 'POST',
         url: getChatUrl(chatId),
         body: JSON.stringify(text),
       }),
@@ -29,8 +27,4 @@ export const chatApi = createApi({
   }),
 });
 
-export const {
-  useGetChatListQuery,
-  useGetMessagesQuery,
-  usePostMessageMutation,
-} = chatApi;
+export const {useGetChatListQuery, useGetMessagesQuery, usePostMessageMutation} = chatApi;

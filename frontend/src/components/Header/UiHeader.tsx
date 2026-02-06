@@ -1,12 +1,12 @@
-import { FC } from "react";
-import { ReactComponent as Chat } from "../../assets/Chat.svg";
-import classes from "./UiHeader.module.scss";
+import {FC} from 'react';
+import {ReactComponent as Chat} from '../../assets/Chat.svg';
+import classes from './UiHeader.module.scss';
 
 interface IHeader {
   title?: string;
 }
 
-export const Header: FC<IHeader> = ({ title = "Chat" }: IHeader) => {
+export const Header: FC<IHeader> = ({title = 'Chat'}: IHeader) => {
   return (
     <div className={classes.header}>
       <span className={classes.chats}>All chats</span>

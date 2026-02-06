@@ -1,21 +1,21 @@
-import { FC } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useGetChatListQuery } from "../../api/chatApi";
-import { setChat } from "../../store/reducer.slice";
-import { selectActiveChat } from "../../store/selector";
-import { ChatItemList } from "../ChatItemList/UiChatItemList";
-import { ChatWindow } from "..";
-import classes from "./UiChatBody.module.scss";
+import {FC} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {useGetChatListQuery} from '../../api/chatApi';
+import {setChat} from '../../store/reducer.slice';
+import {selectActiveChat} from '../../store/selector';
+import {ChatItemList} from '../ChatItemList/UiChatItemList';
+import {ChatWindow} from '..';
+import classes from './UiChatBody.module.scss';
 
 export const Chats: FC = () => {
   const dispatch = useDispatch();
   const activeChat = useSelector(selectActiveChat);
-  const { data, isFetching } = useGetChatListQuery();
+  const {data, isFetching} = useGetChatListQuery();
 
   return (
     <div className={classes.body}>
       <div className={classes.chats}>
-        {data?.map((chat) => (
+        {data?.map(chat => (
           <ChatItemList
             title={chat.title}
             message={chat.last_message.message}

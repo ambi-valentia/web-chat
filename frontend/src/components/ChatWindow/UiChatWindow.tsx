@@ -1,26 +1,23 @@
-import React, { FC, useEffect, useMemo, useRef, useState } from "react";
-import { useDispatch } from "react-redux";
-import { useGetMessagesQuery } from "../../api/chatApi";
-import { ReactComponent as Send } from "../../assets/Filled.svg";
-import { addMessage } from "../../store/reducer.slice";
-import { Avatar, SystemMessage, Time } from "..";
-import classes from "./UiChatWindow.module.scss";
+import React, {FC, useEffect, useMemo, useRef, useState} from 'react';
+import {useDispatch} from 'react-redux';
+import {useGetMessagesQuery} from '../../api/chatApi';
+import {ReactComponent as Send} from '../../assets/Filled.svg';
+import {addMessage} from '../../store/reducer.slice';
+import {Avatar, SystemMessage, Time} from '..';
+import classes from './UiChatWindow.module.scss';
 
 interface ChatWindowProps {
   chatId: string;
 }
 
-export const ChatWindow: FC<ChatWindowProps> = ({
-  chatId,
-}: ChatWindowProps) => {
+export const ChatWindow: FC<ChatWindowProps> = ({chatId}: ChatWindowProps) => {
   const dispatch = useDispatch();
-  const { data: messages } = useGetMessagesQuery(chatId);
+  const {data: messages} = useGetMessagesQuery(chatId);
   const chatBottomRef = useRef<null | HTMLDivElement>(null);
-  const [newMessage, setNewMessage] = useState("");
+  const [newMessage, setNewMessage] = useState('');
 
   useEffect(() => {
-    if (!newMessage)
-      chatBottomRef.current?.scrollIntoView({ behavior: "smooth" });
+    if (!newMessage) chatBottomRef.current?.scrollIntoView({behavior: 'smooth'});
   }, [newMessage]);
 
   const handleSendMessage = (e?: React.KeyboardEvent<HTMLTextAreaElement>) => {
@@ -29,9 +26,9 @@ export const ChatWindow: FC<ChatWindowProps> = ({
       addMessage({
         message: newMessage.trim(),
         created_at: new Date().getTime(),
-      }),
+      })
     );
-    setNewMessage("");
+    setNewMessage('');
   };
 
   const groupedMessages = useMemo(
@@ -39,20 +36,17 @@ export const ChatWindow: FC<ChatWindowProps> = ({
       messages &&
       Object.groupBy(
         messages.toSorted(),
-        ({ created_at }) =>
-          new Date(created_at)
-            .toLocaleString("ru")
-            .replace(/\//g, ".")
-            .split(",")[0],
+        ({created_at}) =>
+          new Date(created_at).toLocaleString('ru').replace(/\//g, '.').split(',')[0]
       ),
-    [messages],
+    [messages]
   );
 
   return (
     <div className={classes.window}>
       <div className={classes.messages}>
         {groupedMessages &&
-          Object.keys(groupedMessages).map((date) => (
+          Object.keys(groupedMessages).map(date => (
             <React.Fragment key={date}>
               <SystemMessage msg={date} />
               {groupedMessages[date] &&
@@ -60,17 +54,13 @@ export const ChatWindow: FC<ChatWindowProps> = ({
                 groupedMessages[date].map((msg, msgIndex) => (
                   <div
                     key={msgIndex}
-                    className={`${classes.message} ${
-                      msg.user.you ? classes.message_my : ""
-                    }`}
+                    className={`${classes.message} ${msg.user.you ? classes.message_my : ''}`}
                   >
-                    {!msg.user.you && (
-                      <Avatar src={msg.user.avatar} size="sm" />
-                    )}
+                    {!msg.user.you && <Avatar src={msg.user.avatar} size="sm" />}
                     {msg.message}
                     <Time
-                      time={new Date(msg.created_at).toLocaleTimeString("ru", {
-                        timeStyle: "short",
+                      time={new Date(msg.created_at).toLocaleTimeString('ru', {
+                        timeStyle: 'short',
                       })}
                       my={msg.user.you}
                     />
@@ -84,10 +74,8 @@ export const ChatWindow: FC<ChatWindowProps> = ({
         <textarea
           className={classes.box}
           value={newMessage}
-          onChange={(e) => setNewMessage(e.target.value)}
-          onKeyDown={(e) =>
-            e.key === "Enter" && !e.shiftKey ? handleSendMessage(e) : null
-          }
+          onChange={e => setNewMessage(e.target.value)}
+          onKeyDown={e => (e.key === 'Enter' && !e.shiftKey ? handleSendMessage(e) : null)}
         />
         <Send className={classes.send} onClick={() => handleSendMessage()}>
           Send

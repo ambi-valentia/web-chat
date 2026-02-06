@@ -1,4 +1,4 @@
 export interface IAvatar {
   src?: string;
-  size?: "md" | "sm";
+  size?: 'md' | 'sm';
 }
