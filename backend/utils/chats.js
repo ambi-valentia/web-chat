@@ -36,8 +36,10 @@ export const generateChats = (users, me, userMessages) =>
     userMessages,
   ).toArray();
 
-export const getChatToUsersMap = (chats) => {
+export const getChatToUsersMap = (chats, userMessages) => {
   const chatToUsers = {};
-  chats.forEach((chat) => (chatToUsers[chat.id] = chat.users));
+  chats.forEach(
+    (chat) => (chatToUsers[chat.id] = userMessages.get(chat.users[0]?.id)),
+  );
   return chatToUsers;
 };

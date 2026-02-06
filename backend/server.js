@@ -19,8 +19,7 @@ export const me = generateUser(true, 0);
 export const users = generateUsers(CHATS_AMOUNT);
 const userMessages = generateUserMessages(users);
 const chats = generateChats(users, me, userMessages);
-
-const messages = {};
+const messages = getChatToUsersMap(chats, userMessages);
 
 app.get("/api/chats", (_, res) => {
   res.json(chats);
@@ -33,13 +32,14 @@ app.get("/api/chats/:id/messages", (req, res) => {
 
 app.post("/api/chats/:id/messages", (req, res) => {
   const { id } = req.params;
-  const { text } = req.body;
+  const { text, created_at } = req.body;
 
   const newMessage = {
     id: "m" + Math.random(),
-    sender: "me",
-    text,
-    ts: Date.now(),
+    user: me,
+    message: text,
+    created_at,
+    is_new: false,
   };
 
   if (!messages[id]) messages[id] = [];
