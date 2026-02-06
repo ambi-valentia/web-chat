@@ -2,6 +2,18 @@ import {FC} from 'react';
 import {Avatar} from '../Avatar';
 import classes from './UiChatItem.module.scss';
 
+const getDateToDisplay = (date?: number) => {
+  if (!date) return '';
+
+  const dateResult = new Date(date);
+  const now = new Date().setHours(0, 0, 0, 0);
+  const week = 24 * 60 * 60 * 1000 * 7;
+
+  if (date >= now) return dateResult.toLocaleTimeString('ru', {hour: '2-digit', minute: '2-digit'});
+  else if (date >= now - week) return dateResult.toLocaleDateString('en', {weekday: 'short'});
+  else return dateResult.toLocaleDateString('ru');
+};
+
 interface IChatItemList {
   message: string;
   avatar: string;
@@ -19,11 +31,7 @@ export const ChatItemList: FC<IChatItemList> = ({
   title = 'Chat',
   active = false,
 }: IChatItemList) => {
-  const date = timestamp ? new Date(timestamp) : null;
-  const dateToDisplay =
-    date?.getDate() === new Date().getDate()
-      ? date?.toLocaleTimeString('ru', {hour: '2-digit', minute: '2-digit'})
-      : date?.toLocaleDateString('ru');
+  const dateToDisplay = getDateToDisplay(timestamp);
 
   return (
     <div className={`${classes.chat} ${active ? classes.chat_active : ''}`} onClick={onClick}>

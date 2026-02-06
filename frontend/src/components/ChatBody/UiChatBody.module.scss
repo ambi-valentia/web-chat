@@ -44,11 +44,14 @@
   bottom: 35px;
   align-self: end;
   border-radius: 8px;
-  padding: 4px 8px;
+  padding: 4px 6px 4px 8px;
   border: none;
   background-color: transparent;
   border: 2px solid rgba(240, 46, 170, 0.4);
-  transition: cubic-bezier(0.075, 0.82, 0.165, 1);
+
+  & > span {
+    visibility: hidden;
+  }
 
   &:hover {
     transform: scale(1.1);
@@ -58,6 +61,10 @@
       rgba(240, 46, 170, 0.2) 15px 15px,
       rgba(240, 46, 170, 0.1) 20px 20px,
       rgba(240, 46, 170, 0.05) 25px 25px;
+
+    & > span {
+      visibility: visible;
+    }
   }
 }
 

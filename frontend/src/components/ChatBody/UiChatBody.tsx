@@ -1,4 +1,4 @@
-import {FC, useEffect, useState} from 'react';
+import {FC, useEffect, useRef, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {useGetChatListQuery} from '../../api/chatApi';
 import {setChat} from '../../store/reducer.slice';
@@ -12,6 +12,7 @@ export const Chats: FC = () => {
   const activeChat = useSelector(selectActiveChat);
   const {data, isFetching, isLoading} = useGetChatListQuery();
   const [popup, setPopup] = useState(false);
+  const chatListTopRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (isLoading) {
@@ -23,6 +24,10 @@ export const Chats: FC = () => {
     }
   }, [isLoading]);
 
+  useEffect(() => {
+    if (!isFetching) chatListTopRef.current?.scrollIntoView({behavior: 'smooth'});
+  }, [isFetching]);
+
   return (
     <div className={classes.body}>
       {popup && (
@@ -33,15 +38,16 @@ export const Chats: FC = () => {
             className={classes.image}
           />
           <p>
-            Hey, *username*! I might be a bit shleepy right now... Please, wait for me to wake up
-            and enjoy the chatting. Thanks!
+            Hey, *username*! I might be a bit shleepy right now... <br /> Please, wait for me to
+            wake up and enjoy <br /> the chatting. Thanks!
           </p>
           <button className={classes.okayButton} onClick={() => setPopup(false)}>
-            Okay
+            Okay<span>!</span>
           </button>
         </div>
       )}
       <div className={classes.chats}>
+        <div ref={chatListTopRef} />
         {data?.map(chat => (
           <ChatItemList
             title={chat.title}

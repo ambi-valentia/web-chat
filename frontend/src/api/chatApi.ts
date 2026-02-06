@@ -9,12 +9,13 @@ export const chatApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: BASE_API_URL,
   }),
-  tagTypes: ['Messages'],
+  tagTypes: ['Messages', 'Chats'],
   endpoints: build => ({
     getChatList: build.query<Chat[], void>({
       query: () => 'chats',
       transformResponse: (response: Chat[]) =>
         response.sort((a, b) => b.last_message.created_at - a.last_message.created_at),
+      providesTags: ['Chats'],
     }),
     getMessages: build.query<Message[], string>({
       query: chatId => getChatUrl(chatId),
@@ -26,7 +27,7 @@ export const chatApi = createApi({
         url: getChatUrl(chatId),
         body: {text, created_at},
       }),
-      invalidatesTags: (result, error, arg) => [{type: 'Messages', id: arg.chatId}],
+      invalidatesTags: (result, error, arg) => [{type: 'Messages', id: arg.chatId}, 'Chats'],
     }),
   }),
 });

@@ -4,13 +4,22 @@ import {Avatar, SystemMessage, Time} from '..';
 import {NewMessage} from './UiNewMessage';
 import classes from './UiChatWindow.module.scss';
 
+const getDateToDisplay = (date: number) => {
+  const today = new Date().setHours(0, 0, 0, 0);
+  const month = 31 * 24 * 60 * 60 * 1000;
+
+  if (date > today - month)
+    return new Date(date).toLocaleDateString('en', {day: 'numeric', month: 'long'});
+  else return new Date(date).toLocaleDateString('ru');
+};
+
 interface ChatWindowProps {
   chatId: string;
 }
 
 export const ChatWindow: FC<ChatWindowProps> = ({chatId}: ChatWindowProps) => {
   const {data: messages, isFetching} = useGetMessagesQuery(chatId);
-  const chatBottomRef = useRef<null | HTMLDivElement>(null);
+  const chatBottomRef = useRef<HTMLDivElement>(null);
   const [newMessageFlag, setNewMessageFlag] = useState(false);
 
   useEffect(() => {
@@ -25,8 +34,7 @@ export const ChatWindow: FC<ChatWindowProps> = ({chatId}: ChatWindowProps) => {
       messages?.length &&
       Object.groupBy(
         messages.toSorted((a, b) => a.created_at - b.created_at),
-        ({created_at}) =>
-          new Date(created_at).toLocaleString('ru').replace(/\//g, '.').split(',')[0]
+        ({created_at}) => getDateToDisplay(created_at)
       ),
     [messages]
   );
