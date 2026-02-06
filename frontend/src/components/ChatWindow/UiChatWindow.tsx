@@ -9,17 +9,20 @@ interface ChatWindowProps {
 }
 
 export const ChatWindow: FC<ChatWindowProps> = ({chatId}: ChatWindowProps) => {
-  const {data: messages} = useGetMessagesQuery(chatId);
+  const {data: messages, isFetching} = useGetMessagesQuery(chatId);
   const chatBottomRef = useRef<null | HTMLDivElement>(null);
-  const [newMessage, setNewMessage] = useState('');
+  const [newMessageFlag, setNewMessageFlag] = useState(false);
 
   useEffect(() => {
-    if (!newMessage) chatBottomRef.current?.scrollIntoView({behavior: 'smooth'});
-  }, [newMessage]);
+    if (newMessageFlag && !isFetching) {
+      chatBottomRef.current?.scrollIntoView({behavior: 'smooth'});
+      setNewMessageFlag(false);
+    }
+  }, [isFetching, newMessageFlag]);
 
   const groupedMessages = useMemo(
     () =>
-      messages &&
+      messages?.length &&
       Object.groupBy(
         messages.toSorted((a, b) => a.created_at - b.created_at),
         ({created_at}) =>
@@ -56,7 +59,7 @@ export const ChatWindow: FC<ChatWindowProps> = ({chatId}: ChatWindowProps) => {
           ))}
         <div ref={chatBottomRef} />
       </div>
-      <NewMessage message={newMessage} setMessage={setNewMessage} chatId={chatId} />
+      <NewMessage setNewMessageFlag={setNewMessageFlag} chatId={chatId} />
     </div>
   );
 };

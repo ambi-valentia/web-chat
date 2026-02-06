@@ -8,6 +8,7 @@ export const chatApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: 'http://localhost:4000/api',
   }),
+  tagTypes: ['Messages'],
   endpoints: build => ({
     getChatList: build.query<Chat[], void>({
       query: () => 'chats',
@@ -16,6 +17,7 @@ export const chatApi = createApi({
     }),
     getMessages: build.query<Message[], string>({
       query: chatId => getChatUrl(chatId),
+      providesTags: (result, error, chatId) => [{type: 'Messages', id: chatId}],
     }),
     postMessage: build.mutation<Message, {chatId: string; text: string; created_at: number}>({
       query: ({chatId, text, created_at}) => ({
@@ -23,6 +25,7 @@ export const chatApi = createApi({
         url: getChatUrl(chatId),
         body: {text, created_at},
       }),
+      invalidatesTags: (result, error, arg) => [{type: 'Messages', id: arg.chatId}],
     }),
   }),
 });

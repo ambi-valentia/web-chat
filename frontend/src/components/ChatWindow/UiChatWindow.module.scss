@@ -12,13 +12,14 @@
   display: grid;
   flex: 1;
   overflow-y: scroll;
-  -ms-overflow-style: none; // browser compatibility
-  scrollbar-width: none; // browser compatibility
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 
   outline: none;
 }
 
 .message {
+  height: fit-content;
   display: grid;
   padding: 8px 12px;
   background-color: #f3f3f3;
@@ -36,7 +37,7 @@
 
 .input {
   display: flex;
-  align-items: center;
+  align-items: end;
   padding: 10px;
   background-color: #fff;
   border-top: 1px solid #ccc;
@@ -49,8 +50,9 @@
   padding: 8px;
   font-size: 14px;
   line-height: 24px;
-  min-height: 24px;
-  max-height: 72px;
+
+  min-height: 40px;
+  max-height: 512px;
   overflow-y: auto;
   outline: none;
 
@@ -58,6 +60,6 @@
 }
 
 .send {
-  margin-left: 10px;
   cursor: pointer;
+  margin: 0 5px 5px 10px;
 }
