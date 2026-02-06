@@ -1,10 +1,8 @@
-import { FC, useEffect, useRef } from "react";
-import { Chats, ChatWindow, Header } from "../../components";
-import classes from "./page.module.scss";
-import { useDispatch } from "react-redux";
+import { FC, useEffect } from "react";
+import { Chats, Header } from "../../components";
+import { useDispatch, useSelector } from "react-redux";
 import { getMessages } from "../../api/chat";
 import { setMessages } from "../../store/reducer.slice";
-import { useSelector } from "react-redux";
 import { selectActiveChat } from "../../store/selector";
 
 export const PageIndex: FC = () => {
@@ -26,10 +24,7 @@ export const PageIndex: FC = () => {
   return (
     <>
       <Header title={activeChat?.title} />
-      <div className={classes.body}>
-        <Chats />
-        {activeChat && <ChatWindow chatId={activeChat?.id} />}
-      </div>
+      <Chats />
     </>
   );
 };

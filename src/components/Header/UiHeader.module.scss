@@ -1,28 +1,30 @@
 .header {
-  display: flex;
   width: 100%;
   height: 64px;
-}
 
-.chats {
   display: flex;
   align-items: center;
+  border-bottom: 1px solid #201f1e1f;
 
-  width: 25%;
-  padding: 0px 16px;
-
-  font-family: "Lato", sans-serif;
   font-size: 18px;
   font-weight: 700;
   line-height: 24px;
-  text-align: left;
+}
+
+.chats {
+  width: 25%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+
+  padding: 0px 16px;
+  border-right: 1px solid #201f1e1f;
 }
 
 .chats__active {
   width: 75%;
-  border-left: 1px solid #201f1e1f;
-  border-bottom: 1px solid #201f1e1f;
-
+  padding: 0px 16px;
   display: flex;
+  align-items: center;
   gap: 8px;
 }

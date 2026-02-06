@@ -9,8 +9,8 @@ interface IHeader {
 export const Header: FC<IHeader> = ({ title = "Chat" }: IHeader) => {
   return (
     <div className={classes.header}>
-      <div className={classes.chats}>All chats</div>
-      <div className={`${classes.chats} ${classes.chats__active}`}>
+      <span className={classes.chats}>All chats</span>
+      <div className={classes.chats__active}>
         <Chat />
         <span>{title}</span>
       </div>

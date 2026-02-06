@@ -1,12 +1,17 @@
 .chats {
   width: 25%;
+
   overflow-y: scroll;
   -ms-overflow-style: none; // browser compatibility
   scrollbar-width: none; // browser compatibility
-
-  outline: none;
+  border-right: 1px solid #201f1e1f;
 }
 
 .chats::-webkit-scrollbar {
   display: none; // browser compatibility
+}
+
+.body {
+  display: flex;
+  height: calc(100dvh - 64px);
 }
