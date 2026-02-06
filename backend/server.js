@@ -1,29 +1,26 @@
 import express, { json } from "express";
 import cors from "cors";
-import { generateChats } from "./utils.js";
+import {
+  generateChats,
+  generateUser,
+  generateUserMessages,
+  generateUsers,
+  getChatToUsersMap,
+} from "./utils/index.js";
 import { PORT } from "./config.js";
+import { CHATS_AMOUNT } from "./constants.js";
 
 const app = express();
 app.use(cors());
 app.use(json());
 app.use(express.static("public"));
 
-let chats = generateChats(25);
+export const me = generateUser(true, 0);
+export const users = generateUsers(CHATS_AMOUNT);
+const userMessages = generateUserMessages(users);
+const chats = generateChats(users, me, userMessages);
 
-let messages = {
-  1: [
-    { id: "m1", sender: "them", text: "Hey!", ts: Date.now() - 60000 },
-    { id: "m2", sender: "me", text: "Hi!", ts: Date.now() - 30000 },
-  ],
-  2: [
-    {
-      id: "m3",
-      sender: "them",
-      text: "Are you there?",
-      ts: Date.now() - 50000,
-    },
-  ],
-};
+const messages = {};
 
 app.get("/api/chats", (_, res) => {
   res.json(chats);

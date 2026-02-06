@@ -1,3 +1,5 @@
+export const CHATS_AMOUNT = 25;
+
 export const NAMES = [
   "Larry",
   "Josh",
@@ -91,4 +93,21 @@ export const SURNAMES = [
   "Shmidt",
   "Maupassant",
   "Granger",
+];
+
+export const LOREM = [
+  "Lorem, ipsum dolor sit amet consectetur adipisicing elit.",
+  "Fugit quam suscipit maiores rem ad quia, iusto, facere perferendis numquam molestias sint fugiat velit.",
+  "Beatae, repellendus exercitationem harum a maxime explicabo?",
+  "Officiis animi porro tempore laborum quas rem sunt saepe, blanditiis aliquam ut, illum asperiores ipsam dolorem ducimus accusantium?",
+  "Explicabo blanditiis laborum commodi repellat, eius porro fuga cumque veritatis a deleniti.",
+  "Totam deserunt modi iure magni veniam aliquid officia, et, minus optio assumenda corrupti ab?",
+  "Dicta totam cum blanditiis, voluptates repellendus voluptatem.",
+  "Tempora autem, hic blanditiis aliquid quam in expedita optio!",
+  "Ad asperiores nesciunt et quos quia aspernatur totam possimus, similique distinctio accusamus omnis, sapiente quasi laudantium.",
+  "Voluptatem ipsa saepe officiis!",
+  "Vel similique amet perspiciatis aliquid non dignissimos quia voluptates provident?",
+  "Repellendus tenetur id placeat culpa maxime commodi ducimus animi, ipsam atque esse ad laudantium deserunt at, cum neque officiis fugit laborum quam dicta mollitia sint ut alias!",
+  "Voluptatum, pariatur quo!",
+  "Fugiat quas eum aspernatur vel!",
 ];
