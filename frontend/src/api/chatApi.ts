@@ -1,12 +1,13 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
 import {Chat, Message} from '../constants/types';
 
+export const BASE_API_URL = process.env.REACT_APP_API_URL;
 const getChatUrl = (chatId: string) => `chats/${chatId}/messages`;
 
 export const chatApi = createApi({
   reducerPath: 'chatApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'http://localhost:4000/api',
+    baseUrl: BASE_API_URL,
   }),
   tagTypes: ['Messages'],
   endpoints: build => ({
