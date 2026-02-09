@@ -1,40 +1,31 @@
-interface LastMsg {
-  created_at: number;
-  message: string;
-}
-
-interface Users {
+type User = {
   id: string;
   name: string;
   surname: string;
   avatar: string;
   you: boolean;
-}
+};
 
-export interface Chat {
+export type Message = {
+  id: string;
+  created_at: number;
+  user: User;
+  message: string;
+  is_new: boolean;
+};
+
+export type NewMessage = Omit<Message, 'id'> & {id?: string};
+
+type LastMsg = Pick<Message, 'created_at' | 'message' | 'user'>;
+
+export type Chat = {
   id: string;
   created_at: number;
   title: string;
   avatar: string;
   private: boolean;
   last_message: LastMsg;
-  count_unread: boolean;
-  users: Users[];
+  count_unread: number;
+  users: User[];
   active?: boolean;
-}
-
-interface User {
-  id?: string;
-  name?: string;
-  surname?: string;
-  avatar?: string;
-  you: boolean;
-}
-
-export interface Message {
-  id?: string;
-  created_at: number;
-  user: User;
-  message: string;
-  is_new: boolean;
-}
+};

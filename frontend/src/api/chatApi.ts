@@ -1,5 +1,5 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
-import {Chat, Message} from '../constants/types';
+import {Chat, Message, NewMessage} from '../constants/types';
 
 export const BASE_API_URL = process.env.REACT_APP_API_URL;
 const getChatUrl = (chatId: string) => `chats/${chatId}/messages`;
@@ -21,7 +21,7 @@ export const chatApi = createApi({
       query: chatId => getChatUrl(chatId),
       providesTags: (result, error, chatId) => [{type: 'Messages', id: chatId}],
     }),
-    postMessage: build.mutation<Message, {chatId: string; text: string; created_at: number}>({
+    postMessage: build.mutation<NewMessage, {chatId: string; text: string; created_at: number}>({
       query: ({chatId, text, created_at}) => ({
         method: 'POST',
         url: getChatUrl(chatId),

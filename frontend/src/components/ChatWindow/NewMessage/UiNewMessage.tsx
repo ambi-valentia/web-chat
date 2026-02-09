@@ -1,7 +1,7 @@
 import {Dispatch, SetStateAction, useState} from 'react';
-import {usePostMessageMutation} from '../../api/chatApi';
-import {ReactComponent as SendIcon} from '../../assets/Filled.svg';
-import classes from './UiChatWindow.module.scss';
+import {usePostMessageMutation} from '../../../api/chatApi';
+import {ReactComponent as SendIcon} from '../../../assets/Filled.svg';
+import classes from './UiNewMessage.module.scss';
 
 type Props = {
   chatId: string;
@@ -14,6 +14,9 @@ export const NewMessage = ({chatId, setNewMessageFlag}: Props) => {
 
   const handleSendMessage = async (e?: React.KeyboardEvent<HTMLTextAreaElement>) => {
     e?.preventDefault();
+
+    if (!message.trim()) return;
+
     await sendMessage({chatId, text: message.trim(), created_at: new Date().getTime()});
     setMessage('');
     setNewMessageFlag(true);

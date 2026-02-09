@@ -1,0 +1,28 @@
+.input {
+  display: flex;
+  align-items: end;
+  padding: 10px;
+  background-color: #fff;
+  border-top: 1px solid #ccc;
+}
+
+.box {
+  flex: 1;
+  border: 1px solid #ccc;
+  border-radius: 16px;
+  padding: 8px;
+  font-size: 14px;
+  line-height: 24px;
+
+  min-height: 40px;
+  max-height: 512px;
+  overflow-y: auto;
+  outline: none;
+
+  white-space: pre-wrap;
+}
+
+.send {
+  cursor: pointer;
+  margin: 0 5px 5px 10px;
+}

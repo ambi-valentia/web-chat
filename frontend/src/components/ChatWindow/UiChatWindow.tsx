@@ -1,7 +1,7 @@
 import React, {FC, useEffect, useMemo, useRef, useState} from 'react';
 import {useGetMessagesQuery} from '../../api/chatApi';
 import {Avatar, SystemMessage, Time} from '..';
-import {NewMessage} from './UiNewMessage';
+import {NewMessage} from './NewMessage';
 import classes from './UiChatWindow.module.scss';
 
 const getDateToDisplay = (date: number) => {
@@ -29,40 +29,35 @@ export const ChatWindow: FC<ChatWindowProps> = ({chatId}: ChatWindowProps) => {
     }
   }, [isFetching, newMessageFlag]);
 
-  const groupedMessages = useMemo(
-    () =>
-      messages?.length &&
-      Object.groupBy(
+  const groupedMessages = useMemo(() => {
+    if (messages?.length)
+      return Object.groupBy(
         messages.toSorted((a, b) => a.created_at - b.created_at),
         ({created_at}) => getDateToDisplay(created_at)
-      ),
-    [messages]
-  );
+      );
+  }, [messages]);
 
   return (
     <div className={classes.window}>
       <div className={classes.messages}>
         {groupedMessages &&
-          Object.keys(groupedMessages).map(date => (
+          Object.entries(groupedMessages).map(([date, messages]) => (
             <React.Fragment key={date}>
               <SystemMessage msg={date} />
-              {groupedMessages[date] &&
-                Object.keys(groupedMessages[date]).length > 0 &&
-                groupedMessages[date].map((msg, msgIndex) => (
-                  <div
-                    key={msgIndex}
-                    className={`${classes.message} ${msg.user.you ? classes.message_my : ''}`}
-                  >
+              {messages?.map((msg, msgIndex) => (
+                <div key={msgIndex} className={classes['message-container']} data-my={msg.user.you}>
+                  <div className={classes.message}>
                     {!msg.user.you && <Avatar src={msg.user.avatar} size="sm" />}
-                    {msg.message}
-                    <Time
-                      time={new Date(msg.created_at).toLocaleTimeString('ru', {
-                        timeStyle: 'short',
-                      })}
-                      my={msg.user.you}
-                    />
+                    <p>{msg.message}</p>
                   </div>
-                ))}
+                  <Time
+                    time={new Date(msg.created_at).toLocaleTimeString('ru', {
+                      timeStyle: 'short',
+                    })}
+                    my={msg.user.you}
+                  />
+                </div>
+              ))}
             </React.Fragment>
           ))}
         <div ref={chatBottomRef} />
