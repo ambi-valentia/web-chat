@@ -49,7 +49,7 @@ app.post("/api/chats/:id/messages", (req, res) => {
     message: newMessage.message,
   };
 
-  chats.res.json(newMessage);
+  res.json(newMessage);
 });
 
 app.listen(PORT, () => {
