@@ -1,20 +1,21 @@
-import { CHATS_AMOUNT, NAMES, SURNAMES } from "../constants.js";
+import { CHATS_AMOUNT, AVATARS_AMOUNT, NAMES, SURNAMES } from "../constants.js";
 import { BASE_URL } from "../config.js";
-import { getRandomNumber } from "./numbersDates.js";
+import { getRandomNumber } from "./helpers.js";
 
 export const getRandomAvatar = () =>
   `${BASE_URL}/${getRandomNumber(CHATS_AMOUNT - 1)}.png`;
 
 export const getRandomName = () => {
-  const name = NAMES[getRandomNumber(NAMES.length)];
-  const surname = SURNAMES[getRandomNumber(SURNAMES.length)];
+  const name = NAMES[getRandomNumber(NAMES.length - 1)];
+  const surname = SURNAMES[getRandomNumber(SURNAMES.length - 1)];
 
   return [name, surname];
 };
 
 export const generateUser = (me = false, i) => {
   const user = getRandomName();
-  const avatar = i < CHATS_AMOUNT ? `${BASE_URL}/${i}.png` : getRandomAvatar();
+  const avatar =
+    i < AVATARS_AMOUNT ? `${BASE_URL}/${i}.png` : getRandomAvatar();
 
   return {
     id: crypto.randomUUID(),
@@ -25,13 +26,17 @@ export const generateUser = (me = false, i) => {
   };
 };
 
-function* generateUserInfo(amount) {
+export const generateUsers = (amount, me) => {
   let i = 0;
+  const users = {};
 
   while (i < amount) {
-    yield generateUser(false, i);
+    const curr = generateUser(false, i);
+    users[curr.id] = curr;
     i++;
   }
-}
 
-export const generateUsers = (amount) => generateUserInfo(amount).toArray();
+  users[me.id] = me;
+
+  return users;
+};

@@ -1,4 +1,5 @@
 export const CHATS_AMOUNT = 25;
+export const AVATARS_AMOUNT = CHATS_AMOUNT;
 
 export const NAMES = [
   "Larry",
