@@ -1,7 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {Chat, Message} from '../constants/types';
-
-export type itemIdx = number;
+import {Chat, Message} from '../shared/types';
 
 export interface Slice {
   messages: Message[];

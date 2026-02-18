@@ -1,13 +1,13 @@
-import {FC, useEffect, useRef, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {useGetChatListQuery} from '../../api/chatApi';
 import {setChat} from '../../store/reducer.slice';
 import {selectActiveChat} from '../../store/selector';
-import {ChatItemList} from '../ChatItemList/UiChatItemList';
+import {ChatItemList} from '../ChatItemList/ChatItemList';
 import {ChatWindow} from '..';
-import classes from './UiChatBody.module.scss';
+import styles from './ChatBody.module.scss';
 
-export const Chats: FC = () => {
+export const ChatBody = () => {
   const dispatch = useDispatch();
   const activeChat = useSelector(selectActiveChat);
   const {data, isFetching, isLoading} = useGetChatListQuery();
@@ -29,24 +29,24 @@ export const Chats: FC = () => {
   }, [isFetching]);
 
   return (
-    <div className={classes.body}>
+    <div className={styles.body}>
       {popup && (
-        <div className={classes.popup}>
+        <div className={styles.popup}>
           <img
             src={`${process.env.PUBLIC_URL}/sleepy.png`}
             alt="An image of a sleepy server"
-            className={classes.image}
+            className={styles.image}
           />
           <p>
             Hey, *username*! I might be a bit shleepy right now... <br /> Please, wait for me to
             wake up and enjoy <br /> the chatting. Thanks!
           </p>
-          <button className={classes.okayButton} onClick={() => setPopup(false)}>
+          <button className={styles.okayButton} onClick={() => setPopup(false)}>
             Okay<span>!</span>
           </button>
         </div>
       )}
-      <div className={classes.chats}>
+      <div className={styles.chats}>
         <div ref={chatListTopRef} />
         {data?.map(chat => (
           <ChatItemList

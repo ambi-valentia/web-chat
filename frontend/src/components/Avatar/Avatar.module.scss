@@ -3,12 +3,12 @@
   object-fit: cover;
   flex-shrink: 0;
 
-  &--sm {
+  &[data-small='true'] {
     width: 32px;
     height: 32px;
   }
 
-  &--md {
+  &[data-small='false'] {
     width: 48px;
     height: 48px;
   }

@@ -1,10 +1,10 @@
-import {PageIndex} from './pages/index';
+import {Main} from './components';
 import './App.css';
 
 function App() {
   return (
     <div className="App">
-      <PageIndex />
+      <Main />
     </div>
   );
 }

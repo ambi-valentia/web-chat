@@ -1,23 +1,13 @@
-import React, {FC, useEffect, useMemo, useRef, useState} from 'react';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {useGetMessagesQuery} from '../../api/chatApi';
-import {Avatar, SystemMessage, Time} from '..';
-import {NewMessage} from './NewMessage';
-import classes from './UiChatWindow.module.scss';
+import {Avatar, NewMessage, SystemMessage, Time} from '..';
+import styles from './ChatWindow.module.scss';
 
-const getDateToDisplay = (date: number) => {
-  const today = new Date().setHours(0, 0, 0, 0);
-  const month = 31 * 24 * 60 * 60 * 1000;
-
-  if (date > today - month)
-    return new Date(date).toLocaleDateString('en', {day: 'numeric', month: 'long'});
-  else return new Date(date).toLocaleDateString('ru');
+type Props = {
+  chatId: string;
 };
 
-interface ChatWindowProps {
-  chatId: string;
-}
-
-export const ChatWindow: FC<ChatWindowProps> = ({chatId}: ChatWindowProps) => {
+export const ChatWindow = ({chatId}: Props) => {
   const {data: messages, isFetching} = useGetMessagesQuery(chatId);
   const chatBottomRef = useRef<HTMLDivElement>(null);
   const [newMessageFlag, setNewMessageFlag] = useState(false);
@@ -38,15 +28,15 @@ export const ChatWindow: FC<ChatWindowProps> = ({chatId}: ChatWindowProps) => {
   }, [messages]);
 
   return (
-    <div className={classes.window}>
-      <div className={classes.messages}>
+    <div className={styles.window}>
+      <div className={styles.messages}>
         {groupedMessages &&
           Object.entries(groupedMessages).map(([date, messages]) => (
             <React.Fragment key={date}>
               <SystemMessage msg={date} />
               {messages?.map((msg, msgIndex) => (
-                <div key={msgIndex} className={classes['message-container']} data-my={msg.user.you}>
-                  <div className={classes.message}>
+                <div key={msgIndex} className={styles['message-container']} data-my={msg.user.you}>
+                  <div className={styles.message}>
                     {!msg.user.you && <Avatar src={msg.user.avatar} size="sm" />}
                     <p>{msg.message}</p>
                   </div>
@@ -65,4 +55,13 @@ export const ChatWindow: FC<ChatWindowProps> = ({chatId}: ChatWindowProps) => {
       <NewMessage setNewMessageFlag={setNewMessageFlag} chatId={chatId} />
     </div>
   );
+};
+
+const getDateToDisplay = (date: number) => {
+  const today = new Date().setHours(0, 0, 0, 0);
+  const month = 31 * 24 * 60 * 60 * 1000;
+
+  if (date > today - month)
+    return new Date(date).toLocaleDateString('en', {day: 'numeric', month: 'long'});
+  else return new Date(date).toLocaleDateString('ru');
 };

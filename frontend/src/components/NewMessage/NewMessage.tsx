@@ -1,7 +1,7 @@
 import {Dispatch, SetStateAction, useState} from 'react';
-import {usePostMessageMutation} from '../../../api/chatApi';
-import {ReactComponent as SendIcon} from '../../../assets/Filled.svg';
-import classes from './UiNewMessage.module.scss';
+import {usePostMessageMutation} from '../../api/chatApi';
+import {ReactComponent as SendIcon} from '../../assets/Filled.svg';
+import styles from './NewMessage.module.scss';
 
 type Props = {
   chatId: string;
@@ -23,14 +23,14 @@ export const NewMessage = ({chatId, setNewMessageFlag}: Props) => {
   };
 
   return (
-    <div className={classes.input}>
+    <div className={styles.input}>
       <textarea
-        className={classes.box}
+        className={styles.box}
         value={message}
         onChange={e => setMessage(e.target.value)}
         onKeyDown={e => (e.key === 'Enter' && !e.shiftKey ? handleSendMessage(e) : null)}
       />
-      <SendIcon className={classes.send} onClick={() => handleSendMessage()}>
+      <SendIcon className={styles.send} onClick={() => handleSendMessage()}>
         Send
       </SendIcon>
     </div>
