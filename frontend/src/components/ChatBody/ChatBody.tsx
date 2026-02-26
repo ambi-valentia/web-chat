@@ -1,9 +1,10 @@
-import {useEffect, useRef, useState} from 'react';
+import {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {useGetChatListQuery} from '../../api/chatApi';
 import {setChat} from '../../store/reducer.slice';
 import {selectActiveChat} from '../../store/selector';
 import {ChatItemList} from '../ChatItemList/ChatItemList';
+import {Skeleton} from '../Skeleton';
 import {ChatWindow} from '..';
 import styles from './ChatBody.module.scss';
 
@@ -12,7 +13,6 @@ export const ChatBody = () => {
   const activeChat = useSelector(selectActiveChat);
   const {data, isFetching, isLoading} = useGetChatListQuery();
   const [popup, setPopup] = useState(false);
-  const chatListTopRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (isLoading) {
@@ -24,12 +24,34 @@ export const ChatBody = () => {
     }
   }, [isLoading]);
 
-  useEffect(() => {
-    if (!isFetching) chatListTopRef.current?.scrollIntoView({behavior: 'smooth'});
-  }, [isFetching]);
-
   return (
     <div className={styles.body}>
+      <div className={styles.chats}>
+        {isFetching
+          ? Array.from({length: 20})
+              .fill(null, 20)
+              .map((_el, idx) => (
+                <div className={styles['skeleton-wrapper']} key={`skeleton-${idx}`}>
+                  <Skeleton width={48} borderRadius="50%" />
+                  <div className={styles['skeleton-content']}>
+                    <Skeleton height={18} width="40%" />
+                    <Skeleton height={26} width="90%" />
+                  </div>
+                </div>
+              ))
+          : data?.map(chat => (
+              <ChatItemList
+                title={chat.title}
+                message={chat.last_message.message}
+                avatar={chat.avatar}
+                timestamp={chat.last_message.created_at}
+                active={chat.id === activeChat?.id}
+                key={chat.id}
+                onClick={() => dispatch(setChat(chat))}
+              />
+            ))}
+      </div>
+      {activeChat && <ChatWindow chatId={activeChat?.id} />}
       {popup && (
         <div className={styles.popup}>
           <img
@@ -46,22 +68,6 @@ export const ChatBody = () => {
           </button>
         </div>
       )}
-      <div className={styles.chats}>
-        <div ref={chatListTopRef} />
-        {data?.map(chat => (
-          <ChatItemList
-            title={chat.title}
-            message={chat.last_message.message}
-            avatar={chat.avatar}
-            timestamp={chat.last_message.created_at}
-            active={chat.id === activeChat?.id}
-            key={chat.id}
-            onClick={() => dispatch(setChat(chat))}
-          />
-        ))}
-        {isFetching && <div>Loading...</div>}
-      </div>
-      {activeChat && <ChatWindow chatId={activeChat?.id} />}
     </div>
   );
 };
