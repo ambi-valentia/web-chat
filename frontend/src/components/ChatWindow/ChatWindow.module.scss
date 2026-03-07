@@ -16,6 +16,10 @@
   scrollbar-width: none;
 
   outline: none;
+
+  & * {
+    overflow-anchor: none;
+  }
 }
 
 .message-container {
@@ -39,4 +43,9 @@
 .message {
   display: grid;
   gap: 6px;
+}
+
+.chat-bottom {
+  overflow-anchor: auto;
+  height: 0.01px;
 }

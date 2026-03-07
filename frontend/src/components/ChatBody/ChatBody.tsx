@@ -13,6 +13,7 @@ export const ChatBody = () => {
   const activeChat = useSelector(selectActiveChat);
   const {data, isFetching, isLoading} = useGetChatListQuery();
   const [popup, setPopup] = useState(false);
+  const [skeleton, setSkeleton] = useState(false);
 
   useEffect(() => {
     if (isLoading) {
@@ -24,10 +25,20 @@ export const ChatBody = () => {
     }
   }, [isLoading]);
 
+  useEffect(() => {
+    if (isFetching) {
+      const timer = setTimeout(() => {
+        if (isFetching) setSkeleton(true);
+      }, 200);
+
+      return () => clearTimeout(timer);
+    } else setSkeleton(false);
+  }, [isFetching]);
+
   return (
     <div className={styles.body}>
       <div className={styles.chats}>
-        {isFetching
+        {skeleton
           ? Array.from({length: 20})
               .fill(null, 20)
               .map((_el, idx) => (

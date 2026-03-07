@@ -10,14 +10,14 @@ type Props = {
 export const ChatWindow = ({chatId}: Props) => {
   const {data: messages, isFetching} = useGetMessagesQuery(chatId);
   const chatBottomRef = useRef<HTMLDivElement>(null);
-  const [newMessageFlag, setNewMessageFlag] = useState(false);
+  const [hasMyNewMsg, setHasMyNewMsg] = useState(false);
 
   useEffect(() => {
-    if (newMessageFlag && !isFetching) {
+    if (hasMyNewMsg && !isFetching) {
       chatBottomRef.current?.scrollIntoView({behavior: 'smooth'});
-      setNewMessageFlag(false);
+      setHasMyNewMsg(false);
     }
-  }, [isFetching, newMessageFlag]);
+  }, [isFetching, hasMyNewMsg]);
 
   const groupedMessages = useMemo(() => {
     if (messages?.length)
@@ -50,9 +50,9 @@ export const ChatWindow = ({chatId}: Props) => {
               ))}
             </React.Fragment>
           ))}
-        <div ref={chatBottomRef} />
+        <div className={styles['chat-bottom']} ref={chatBottomRef} />
       </div>
-      <NewMessage setNewMessageFlag={setNewMessageFlag} chatId={chatId} />
+      <NewMessage setNewMessageFlag={setHasMyNewMsg} chatId={chatId} />
     </div>
   );
 };
