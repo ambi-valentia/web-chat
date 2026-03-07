@@ -1,12 +1,7 @@
-import {Main} from './components';
-import './App.css';
+import {ChatBody} from './components';
 
 function App() {
-  return (
-    <div className="App">
-      <Main />
-    </div>
-  );
+  return <ChatBody />;
 }
 
 export default App;

@@ -1,14 +1,15 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {useGetMessagesQuery} from '../../api/chatApi';
-import {Avatar, NewMessage, SystemMessage, Time} from '..';
+import {Chat} from '../../shared/types';
+import {Avatar, ChatHeader, NewMessage, SystemMessage, Time} from '..';
 import styles from './ChatWindow.module.scss';
 
 type Props = {
-  chatId: string;
+  activeChat: Chat;
 };
 
-export const ChatWindow = ({chatId}: Props) => {
-  const {data: messages, isFetching} = useGetMessagesQuery(chatId);
+export const ChatWindow = ({activeChat}: Props) => {
+  const {data: messages, isFetching} = useGetMessagesQuery(activeChat.id);
   const chatBottomRef = useRef<HTMLDivElement>(null);
   const [hasMyNewMsg, setHasMyNewMsg] = useState(false);
 
@@ -29,6 +30,7 @@ export const ChatWindow = ({chatId}: Props) => {
 
   return (
     <div className={styles.window}>
+      <ChatHeader title={activeChat.title} />
       <div className={styles.messages}>
         {groupedMessages &&
           Object.entries(groupedMessages).map(([date, messages]) => (
@@ -37,7 +39,9 @@ export const ChatWindow = ({chatId}: Props) => {
               {messages?.map((msg, msgIndex) => (
                 <div key={msgIndex} className={styles['message-container']} data-my={msg.user.you}>
                   <div className={styles.message}>
-                    {!msg.user.you && <Avatar src={msg.user.avatar} size="sm" />}
+                    {!msg.user.you && !activeChat.private && (
+                      <Avatar src={msg.user.avatar} size="sm" />
+                    )}
                     <p>{msg.message}</p>
                   </div>
                   <Time
@@ -52,7 +56,7 @@ export const ChatWindow = ({chatId}: Props) => {
           ))}
         <div className={styles['chat-bottom']} ref={chatBottomRef} />
       </div>
-      <NewMessage setNewMessageFlag={setHasMyNewMsg} chatId={chatId} />
+      <NewMessage setNewMessageFlag={setHasMyNewMsg} chatId={activeChat.id} />
     </div>
   );
 };

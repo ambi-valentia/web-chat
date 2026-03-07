@@ -1,0 +1,118 @@
+.popup {
+  position: fixed;
+  right: 5%;
+  top: 15px;
+
+  min-height: 150px;
+  min-width: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
+  padding: 8px 0 8px 18px;
+  background: white;
+  border-radius: 30px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  animation: fadeSlideIn 0.7s ease-out forwards;
+}
+
+.image {
+  height: 135px;
+  min-width: 135px;
+}
+
+.okayButton {
+  position: relative;
+  right: 50px;
+  bottom: 35px;
+  align-self: end;
+  border-radius: 8px;
+  padding: 4px 6px 4px 8px;
+  border: none;
+  background-color: transparent;
+  border: 2px solid rgba(240, 46, 170, 0.4);
+
+  & > span {
+    visibility: hidden;
+  }
+
+  &:hover {
+    transform: scale(1.1);
+    box-shadow:
+      rgba(240, 46, 170, 0.4) 5px 5px,
+      rgba(240, 46, 170, 0.3) 10px 10px,
+      rgba(240, 46, 170, 0.2) 15px 15px,
+      rgba(240, 46, 170, 0.1) 20px 20px,
+      rgba(240, 46, 170, 0.05) 25px 25px;
+
+    & > span {
+      visibility: visible;
+    }
+  }
+}
+
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(15px);
+  }
+}
+
+@keyframes fadeSlideInMobile {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -30px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 15px);
+  }
+}
+
+@media screen and (max-width: 1500px) {
+  .popup {
+    flex-direction: column;
+    max-width: 40%;
+    padding: 16px 24px 30px 24px;
+    right: 7%;
+    gap: 8px;
+
+    & > p {
+      text-align: center;
+
+      & > br {
+        display: none;
+      }
+    }
+  }
+
+  .okayButton {
+    width: 100%;
+    position: initial;
+    align-self: unset;
+
+    & > span {
+      visibility: visible;
+    }
+
+    &:hover {
+      transform: none;
+      box-shadow: none;
+    }
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .popup {
+    max-width: unset;
+    width: 80%;
+    right: unset;
+    left: 50%;
+
+    animation: fadeSlideInMobile 0.7s ease-out forwards;
+  }
+}

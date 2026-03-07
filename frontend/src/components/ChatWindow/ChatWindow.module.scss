@@ -4,11 +4,13 @@
   width: 75%;
   height: 100%;
 
-  padding: 10px;
-  outline: none;
+  @media screen and (max-width: 700px) {
+    width: 100%;
+  }
 }
 
 .messages {
+  padding: 16px;
   display: grid;
   flex: 1;
   overflow-y: scroll;
@@ -37,6 +39,10 @@
     background: #407ec929;
     justify-self: flex-end;
     padding-top: 16px;
+  }
+
+  @media screen and (max-width: 800px) {
+    max-width: 80%;
   }
 }
 

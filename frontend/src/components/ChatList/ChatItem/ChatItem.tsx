@@ -1,4 +1,4 @@
-import {Avatar} from '../Avatar';
+import {Avatar} from '../../Avatar';
 import styles from './ChatItem.module.scss';
 
 type Props = {
@@ -10,7 +10,7 @@ type Props = {
   timestamp?: number;
 };
 
-export const ChatItemList = ({
+export const ChatItem = ({
   avatar,
   message,
   timestamp,

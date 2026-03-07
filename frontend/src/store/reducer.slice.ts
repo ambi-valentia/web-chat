@@ -1,12 +1,12 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {Chat, Message} from '../shared/types';
 
-export interface Slice {
+export type AppState = {
   messages: Message[];
   activeChat: Chat | null;
-}
+};
 
-const initialState: Slice = {
+const initialState: AppState = {
   messages: [],
   activeChat: null,
 };
@@ -18,7 +18,7 @@ export const slice = createSlice({
     setMessages: (state, action: PayloadAction<Message[]>) => {
       state.messages = action.payload;
     },
-    setChat: (state, action: PayloadAction<Chat>) => {
+    setChat: (state, action: PayloadAction<AppState['activeChat']>) => {
       state.activeChat = action.payload;
     },
   },
