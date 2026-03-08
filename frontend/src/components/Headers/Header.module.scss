@@ -8,10 +8,6 @@
   gap: 8px;
 
   border-bottom: 1px solid #201f1e1f;
-
-  & > img {
-    display: none;
-  }
 }
 
 .back {
@@ -19,6 +15,17 @@
   background: none;
   border: none;
   align-items: center;
+  padding: 0;
+}
+
+.user {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  & > img {
+    display: none;
+  }
 }
 
 @media screen and (max-width: 700px) {
@@ -27,12 +34,16 @@
   }
 
   .header {
-    & > img {
-      display: initial;
-    }
+    height: 54px;
+    padding: 8px 12px;
+    justify-content: space-between;
 
     & > svg {
       display: none;
     }
+  }
+
+  .user > img {
+    display: initial;
   }
 }

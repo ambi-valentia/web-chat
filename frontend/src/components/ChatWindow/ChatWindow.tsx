@@ -1,7 +1,8 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {useGetMessagesQuery} from '../../api/chatApi';
 import {Chat} from '../../shared/types';
-import {Avatar, ChatHeader, NewMessage, SystemMessage, Time} from '..';
+import {ChatHeader, NewMessage, SystemMessage} from '..';
+import {Message} from './Message';
 import styles from './ChatWindow.module.scss';
 
 type Props = {
@@ -36,21 +37,8 @@ export const ChatWindow = ({activeChat}: Props) => {
           Object.entries(groupedMessages).map(([date, messages]) => (
             <React.Fragment key={date}>
               <SystemMessage msg={date} />
-              {messages?.map((msg, msgIndex) => (
-                <div key={msgIndex} className={styles['message-container']} data-my={msg.user.you}>
-                  <div className={styles.message}>
-                    {!msg.user.you && !activeChat.private && (
-                      <Avatar src={msg.user.avatar} size="sm" />
-                    )}
-                    <p>{msg.message}</p>
-                  </div>
-                  <Time
-                    time={new Date(msg.created_at).toLocaleTimeString('ru', {
-                      timeStyle: 'short',
-                    })}
-                    my={msg.user.you}
-                  />
-                </div>
+              {messages?.map(msg => (
+                <Message key={msg.id} msg={msg} isPrivateChat={activeChat.private} />
               ))}
             </React.Fragment>
           ))}

@@ -35,7 +35,7 @@ export const ChatList = ({activeChat}: {activeChat: AppState['activeChat']}) => 
   }, [isFetching]);
 
   return (
-    <div className={styles.chatlist} data-hide-list={!!activeChat}>
+    <div className={styles.chatlist}>
       <ListHeader />
       {skeleton
         ? getSkeletons()

@@ -22,7 +22,7 @@ export const ChatItem = ({
 
   return (
     <div className={`${styles.chat} ${active ? styles.chat_active : ''}`} onClick={onClick}>
-      <Avatar src={avatar} size="md" />
+      <Avatar src={avatar} size="lg" />
       <div className={styles.content}>
         <div className={styles.top}>
           <span className={styles.title}>{title}</span>

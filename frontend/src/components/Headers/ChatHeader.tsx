@@ -20,8 +20,10 @@ export const ChatHeader = ({title = 'Chat'}: Props) => {
         <BackIcon />
       </button>
       <ChatIcon />
-      <Avatar src={activeChat?.avatar} size="md" />
-      <span>{title}</span>
+      <div className={styles.user}>
+        <span>{title}</span>
+        <Avatar src={activeChat?.avatar} size="md" />
+      </div>
     </div>
   );
 };

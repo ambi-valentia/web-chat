@@ -2,14 +2,19 @@
   border-radius: 50%;
   object-fit: cover;
   flex-shrink: 0;
+}
 
-  &[data-small='true'] {
-    width: 32px;
-    height: 32px;
-  }
+.component-avatar--sm {
+  width: 32px;
+  height: 32px;
+}
 
-  &[data-small='false'] {
-    width: 48px;
-    height: 48px;
-  }
+.component-avatar--md {
+  width: 40px;
+  height: 40px;
+}
+
+.component-avatar--lg {
+  width: 48px;
+  height: 48px;
 }

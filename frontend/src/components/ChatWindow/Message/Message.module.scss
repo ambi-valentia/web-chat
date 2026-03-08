@@ -1,0 +1,25 @@
+.message-container {
+  height: fit-content;
+  display: grid;
+  padding: 10px 16px;
+  background-color: #f3f3f3;
+  max-width: 50%;
+  gap: 2px;
+  border-radius: 25px;
+  white-space: pre-wrap;
+
+  &[data-my='true'] {
+    background: #407ec929;
+    justify-self: flex-end;
+  }
+
+  @media screen and (max-width: 800px) {
+    max-width: 80%;
+  }
+}
+
+.message-text {
+  display: grid;
+  gap: 6px;
+  word-break: break-word;
+}

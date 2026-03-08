@@ -3,55 +3,34 @@
   flex-direction: column;
   width: 75%;
   height: 100%;
-
-  @media screen and (max-width: 700px) {
-    width: 100%;
-  }
 }
 
 .messages {
-  padding: 16px;
+  padding: 16px 16px 6px 16px;
   display: grid;
+  gap: 10px;
   flex: 1;
+
   overflow-y: scroll;
   -ms-overflow-style: none;
   scrollbar-width: none;
-
-  outline: none;
 
   & * {
     overflow-anchor: none;
   }
 }
 
-.message-container {
-  height: fit-content;
-  display: grid;
-  padding: 10px 16px;
-  background-color: #f3f3f3;
-  max-width: 50%;
-  gap: 2px;
-  border-radius: 25px;
-  margin: 10px 0;
-  white-space: pre-wrap;
-
-  &[data-my='true'] {
-    background: #407ec929;
-    justify-self: flex-end;
-    padding-top: 16px;
-  }
-
-  @media screen and (max-width: 800px) {
-    max-width: 80%;
-  }
-}
-
-.message {
-  display: grid;
-  gap: 6px;
-}
-
 .chat-bottom {
   overflow-anchor: auto;
   height: 0.01px;
+}
+
+@media screen and (max-width: 700px) {
+  .window {
+    width: 100%;
+  }
+
+  .messages {
+    padding: 8px 12px 0 12px;
+  }
 }
