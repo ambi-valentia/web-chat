@@ -22,4 +22,7 @@
   display: grid;
   gap: 6px;
   word-break: break-word;
+  p {
+    margin: 0;
+  }
 }

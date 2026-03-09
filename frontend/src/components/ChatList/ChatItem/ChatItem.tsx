@@ -1,24 +1,16 @@
+import {Chat} from '../../../shared/types';
 import {Avatar} from '../../Avatar';
 import styles from './ChatItem.module.scss';
 
 type Props = {
-  message: string;
-  avatar: string;
+  chatInfo: Chat;
+  active: boolean;
   onClick: () => void;
-  title?: string;
-  active?: boolean;
-  timestamp?: number;
 };
 
-export const ChatItem = ({
-  avatar,
-  message,
-  timestamp,
-  onClick,
-  title = 'Chat',
-  active = false,
-}: Props) => {
-  const dateToDisplay = getDateToDisplay(timestamp);
+export const ChatItem = ({chatInfo, active, onClick}: Props) => {
+  const {title, avatar, last_message} = chatInfo;
+  const dateToDisplay = getDateToDisplay(last_message.created_at);
 
   return (
     <div className={`${styles.chat} ${active ? styles.chat_active : ''}`} onClick={onClick}>
@@ -28,7 +20,7 @@ export const ChatItem = ({
           <span className={styles.title}>{title}</span>
           {dateToDisplay && <span className={styles.time}>{dateToDisplay}</span>}
         </div>
-        <div className={styles.message}>{message}</div>
+        <div className={styles.message}>{last_message.message}</div>
       </div>
     </div>
   );

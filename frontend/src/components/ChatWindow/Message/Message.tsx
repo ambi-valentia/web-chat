@@ -3,13 +3,12 @@ import {Avatar, Time} from '../..';
 import styles from './Message.module.scss';
 
 type Props = {
-  key: string;
   msg: MessageType;
   isPrivateChat?: boolean;
 };
 
-export const Message = ({key, msg, isPrivateChat = true}: Props) => (
-  <div key={key} className={styles['message-container']} data-my={msg.user.you}>
+export const Message = ({msg, isPrivateChat = true}: Props) => (
+  <div className={styles['message-container']} data-my={msg.user.you}>
     <div className={styles['message-text']}>
       {!msg.user.you && !isPrivateChat && <Avatar src={msg.user.avatar} size="sm" />}
       <p>{msg.message}</p>

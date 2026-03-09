@@ -41,13 +41,10 @@ export const ChatList = ({activeChat}: {activeChat: AppState['activeChat']}) => 
         ? getSkeletons()
         : data?.map(chat => (
             <ChatItem
-              title={chat.title}
-              message={chat.last_message.message}
-              avatar={chat.avatar}
-              timestamp={chat.last_message.created_at}
-              active={chat.id === activeChat?.id}
+              chatInfo={chat}
               key={chat.id}
               onClick={() => dispatch(setChat(chat))}
+              active={chat.id === activeChat?.id}
             />
           ))}
       <Popup isVisible={popup} onClick={() => setPopup(false)} />
