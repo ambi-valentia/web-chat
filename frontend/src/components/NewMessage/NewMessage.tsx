@@ -1,9 +1,10 @@
-import {Dispatch, SetStateAction, useRef, useState} from 'react';
+import {Dispatch, SetStateAction, useLayoutEffect, useRef, useState} from 'react';
 import {usePostMessageMutation} from '../../api/chatApi';
 import {ReactComponent as SendIcon} from '../../assets/Filled.svg';
+import {resetInputHeight, setInputHeight} from './utils';
 import styles from './NewMessage.module.scss';
 
-const INIT_INPUT_HEIGHT = '36px';
+const MAX_INPUT_HEIGHT = 250;
 
 type Props = {
   chatId: string;
@@ -15,10 +16,14 @@ export const NewMessage = ({chatId, setNewMessageFlag}: Props) => {
   const [message, setMessage] = useState('');
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
+  useLayoutEffect(() => {
+    resetInputHeight(textareaRef);
+    setInputHeight({ref: textareaRef, maxHeight: MAX_INPUT_HEIGHT});
+  }, [message]);
+
   const handleSendMessage = async (e?: React.KeyboardEvent<HTMLTextAreaElement>) => {
     e?.preventDefault();
 
-    if (textareaRef.current) textareaRef.current.style.height = INIT_INPUT_HEIGHT;
     if (!message.trim()) return;
 
     await sendMessage({chatId, text: message.trim(), created_at: new Date().getTime()});
@@ -32,15 +37,13 @@ export const NewMessage = ({chatId, setNewMessageFlag}: Props) => {
         ref={textareaRef}
         className={styles.box}
         value={message}
-        onChange={e => setMessage(e.target.value)}
+        onChange={e => {
+          setMessage(e.target.value);
+        }}
         onKeyDown={e => {
           if (e.key === 'Enter' && !e.shiftKey) {
             handleSendMessage(e);
             return;
-          }
-          const textarea = textareaRef.current;
-          if (textarea && textarea.clientHeight < 250) {
-            textarea.style.height = textareaRef.current?.scrollHeight + 'px';
           }
         }}
       />
