@@ -15,7 +15,7 @@ export const Popup = ({
       {createPortal(
         <div className={styles.popup}>
           <img
-            src={`${process.env.PUBLIC_URL}/sleepy.png`}
+            src={`${process.env.PUBLIC_URL}/sleepy.webp`}
             alt="An image of a sleepy server"
             className={styles.image}
           />

@@ -1,0 +1,44 @@
+:root {
+  --muted-red: #d40024;
+  --bg: white;
+  --bg-secondary: white;
+  --bg-accent: #407ec929;
+  --text: black;
+  --text-accent: #201f1e;
+  --text-lightgrey: #605e5c;
+  --border: #201f1e1f;
+  --border-accent: #ccc;
+  --message: #f3f3f3;
+  --hover: #201f1e0a;
+  --bg-skeleton: linear-gradient(
+    to right,
+    #e0e0e0 0%,
+    #e0e0e0 15%,
+    #f5f5f5 20%,
+    #e0e0e0 25%,
+    #e0e0e0 100%
+  );
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #19171d;
+    --bg-secondary: #2a2630;
+    --bg-accent: #2a2630;
+    --text: white;
+    --text-accent: #c9c2bc;
+    --text-lightgrey: #908b87;
+    --border: #fff9f31f;
+    --border-accent: #fff9f31f;
+    --message: rgb(39, 38, 41);
+    --hover: #fff4ea0a;
+    --bg-skeleton: linear-gradient(
+      to right,
+      #404040 0%,
+      #606060 15%,
+      #858585 20%,
+      #606060 25%,
+      #404040 100%
+    );
+  }
+}

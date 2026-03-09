@@ -2,14 +2,14 @@
   height: fit-content;
   display: grid;
   padding: 10px 16px;
-  background-color: #f3f3f3;
+  background: var(--message);
   max-width: 50%;
   gap: 2px;
   border-radius: 25px;
   white-space: pre-wrap;
 
   &[data-my='true'] {
-    background: #407ec929;
+    background: var(--bg-accent);
     justify-self: flex-end;
   }
 

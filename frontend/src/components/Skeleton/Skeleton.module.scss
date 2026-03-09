@@ -10,14 +10,7 @@
 .skeleton {
   max-height: inherit;
   max-width: inherit;
-  background: linear-gradient(
-    to right,
-    #e0e0e0 0%,
-    #e0e0e0 15%,
-    #f5f5f5 20%,
-    #e0e0e0 25%,
-    #e0e0e0 100%
-  );
+  background: var(--bg-skeleton);
   background-size: 1000px 100%;
   flex-shrink: 0;
 }
