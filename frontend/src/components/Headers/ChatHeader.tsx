@@ -1,7 +1,8 @@
 import {useDispatch, useSelector} from 'react-redux';
 import {ReactComponent as BackIcon} from '../../assets/ArrowBack.svg';
 import {ReactComponent as ChatIcon} from '../../assets/Chat.svg';
-import {setChat} from '../../store/reducer.slice';
+import {useChatInfo} from '../../shared';
+import {setActiveChat} from '../../store/reducer.slice';
 import {selectActiveChat} from '../../store/selector';
 import {Avatar} from '../Avatar';
 import styles from './Header.module.scss';
@@ -12,11 +13,12 @@ type Props = {
 
 export const ChatHeader = ({title = 'Chat'}: Props) => {
   const dispatch = useDispatch();
-  const activeChat = useSelector(selectActiveChat);
+  const activeChatId = useSelector(selectActiveChat);
+  const {activeChat} = useChatInfo(activeChatId);
 
   return (
     <div className={styles.header}>
-      <button className={styles.back} onClick={() => dispatch(setChat(null))}>
+      <button className={styles.back} onClick={() => dispatch(setActiveChat(''))}>
         <BackIcon />
       </button>
       <ChatIcon />

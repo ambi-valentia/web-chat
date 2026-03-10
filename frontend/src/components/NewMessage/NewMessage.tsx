@@ -1,19 +1,21 @@
 import {Dispatch, SetStateAction, useRef, useState} from 'react';
+import {useSelector} from 'react-redux';
 import {usePostMessageMutation} from '../../api/chatApi';
 import {ReactComponent as SendIcon} from '../../assets/Filled.svg';
 import {removeChatDraft, setChatDraft} from '../../shared';
+import {selectActiveChat} from '../../store/selector';
 import {useChatDrafts, useResizeInput} from './hooks';
 import styles from './NewMessage.module.scss';
 
 type Props = {
-  chatId: string;
   setNewMessageFlag: Dispatch<SetStateAction<boolean>>;
 };
 
-export const NewMessage = ({chatId, setNewMessageFlag}: Props) => {
+export const NewMessage = ({setNewMessageFlag}: Props) => {
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const chatId = useSelector(selectActiveChat);
   const [sendMessage] = usePostMessageMutation();
   const [message, setMessage] = useState('');
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   useResizeInput({ref: textareaRef, message});
   useChatDrafts(chatId, setMessage);

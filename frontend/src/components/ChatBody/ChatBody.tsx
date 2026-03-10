@@ -26,8 +26,8 @@ export const ChatBody = () => {
 
   return (
     <div className={styles.body}>
-      {(!isMobile || (isMobile && !activeChat)) && <ChatList activeChat={activeChat} />}
-      {activeChat && <ChatWindow activeChat={activeChat} />}
+      {(!isMobile || (isMobile && !activeChat)) && <ChatList />}
+      {activeChat && <ChatWindow />}
     </div>
   );
 };

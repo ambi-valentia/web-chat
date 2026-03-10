@@ -1,15 +1,17 @@
-import {useEffect, useState} from 'react';
-import {useDispatch} from 'react-redux';
+import {useCallback, useEffect, useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 import {useGetChatListQuery} from '../../api/chatApi';
-import {AppState, setChat} from '../../store/reducer.slice';
+import {setActiveChat} from '../../store/reducer.slice';
+import {selectActiveChat} from '../../store/selector';
 import {ListHeader} from '../Headers';
 import {Skeleton} from '../Skeleton';
 import {ChatItem} from './ChatItem';
 import {Popup} from './Popup';
 import styles from './ChatList.module.scss';
 
-export const ChatList = ({activeChat}: {activeChat: AppState['activeChat']}) => {
+export const ChatList = () => {
   const dispatch = useDispatch();
+  const activeChat = useSelector(selectActiveChat);
   const {data, isFetching, isLoading} = useGetChatListQuery();
   const [popup, setPopup] = useState(false);
   const [skeleton, setSkeleton] = useState(false);
@@ -34,6 +36,8 @@ export const ChatList = ({activeChat}: {activeChat: AppState['activeChat']}) => 
     } else setSkeleton(false);
   }, [isFetching]);
 
+  const setActive = useCallback((chatId: string) => dispatch(setActiveChat(chatId)), [dispatch]);
+
   return (
     <div className={styles.chatlist}>
       <ListHeader />
@@ -43,8 +47,8 @@ export const ChatList = ({activeChat}: {activeChat: AppState['activeChat']}) => 
             <ChatItem
               chatInfo={chat}
               key={chat.id}
-              onClick={() => dispatch(setChat(chat))}
-              active={chat.id === activeChat?.id}
+              onClick={setActive}
+              isActive={chat.id === activeChat}
             />
           ))}
       <Popup isVisible={popup} onClick={() => setPopup(false)} />

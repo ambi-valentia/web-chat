@@ -1,20 +1,21 @@
+import {memo} from 'react';
 import {Chat, getChatDraft} from '../../../shared';
 import {Avatar} from '../../Avatar';
 import styles from './ChatItem.module.scss';
 
 type Props = {
   chatInfo: Chat;
-  active: boolean;
-  onClick: () => void;
+  isActive: boolean;
+  onClick: (chatId: string) => void;
 };
 
-export const ChatItem = ({chatInfo, active, onClick}: Props) => {
-  const {title, avatar, last_message} = chatInfo;
+const ChatItemInner = ({chatInfo, isActive, onClick}: Props) => {
+  const {id, title, avatar, last_message} = chatInfo;
   const dateToDisplay = getDateToDisplay(last_message.created_at);
-  const draft = getChatDraft(chatInfo.id);
+  const draft = getChatDraft(id);
 
   return (
-    <div className={styles.chat} data-active={active} onClick={onClick}>
+    <div className={styles.chat} data-active={isActive} onClick={() => onClick(id)}>
       <Avatar src={avatar} size="lg" />
       <div className={styles.content}>
         <div className={styles.top}>
@@ -29,6 +30,8 @@ export const ChatItem = ({chatInfo, active, onClick}: Props) => {
     </div>
   );
 };
+
+export const ChatItem = memo(ChatItemInner);
 
 const getDateToDisplay = (date?: number) => {
   if (!date) return '';

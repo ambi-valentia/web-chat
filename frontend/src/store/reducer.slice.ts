@@ -1,24 +1,23 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {Chat} from '../shared';
 
 export type AppState = {
-  activeChat: Chat | null;
+  activeChat: string;
 };
 
 const initialState: AppState = {
-  activeChat: null,
+  activeChat: '',
 };
 
 export const slice = createSlice({
   name: 'main',
   initialState,
   reducers: {
-    setChat: (state, action: PayloadAction<AppState['activeChat']>) => {
+    setActiveChat: (state, action: PayloadAction<AppState['activeChat']>) => {
       state.activeChat = action.payload;
     },
   },
 });
 
-export const {setChat} = slice.actions;
+export const {setActiveChat} = slice.actions;
 
 export default slice.reducer;
