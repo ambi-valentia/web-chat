@@ -10,9 +10,13 @@
 .skeleton {
   max-height: inherit;
   max-width: inherit;
+  width: 100%;
+  aspect-ratio: 1;
+  flex-shrink: 0;
+
   background: var(--bg-skeleton);
   background-size: 1000px 100%;
-  flex-shrink: 0;
+  border-radius: 16px;
 }
 
 .skeleton_animated {

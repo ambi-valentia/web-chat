@@ -55,6 +55,7 @@ export const useChatDrafts = (chatId: string, setMessage: Dispatch<SetStateActio
     window.addEventListener('beforeunload', handleUnload);
 
     return () => {
+      handleUnload();
       window.removeEventListener('beforeunload', handleUnload);
     };
   }, []);
