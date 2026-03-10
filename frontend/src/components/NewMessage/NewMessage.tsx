@@ -1,7 +1,7 @@
 import {Dispatch, SetStateAction, useLayoutEffect, useRef, useState} from 'react';
 import {usePostMessageMutation} from '../../api/chatApi';
 import {ReactComponent as SendIcon} from '../../assets/Filled.svg';
-import {resetInputHeight, setInputHeight} from './utils';
+import {useResizeInput} from './hooks';
 import styles from './NewMessage.module.scss';
 
 const MAX_INPUT_HEIGHT = 250;
@@ -16,10 +16,17 @@ export const NewMessage = ({chatId, setNewMessageFlag}: Props) => {
   const [message, setMessage] = useState('');
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
+  const {resizeInput, resetInputHeight} = useResizeInput({ref: textareaRef});
+
+  useLayoutEffect(() => setMessage(''), [chatId]);
+
   useLayoutEffect(() => {
-    resetInputHeight(textareaRef);
-    setInputHeight({ref: textareaRef, maxHeight: MAX_INPUT_HEIGHT});
-  }, [message]);
+    if (!message.trim()) {
+      resetInputHeight();
+      return;
+    }
+    resizeInput({maxHeight: MAX_INPUT_HEIGHT});
+  }, [message, resetInputHeight, resizeInput]);
 
   const handleSendMessage = async (e?: React.KeyboardEvent<HTMLTextAreaElement>) => {
     e?.preventDefault();
