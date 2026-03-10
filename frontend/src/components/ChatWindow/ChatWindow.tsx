@@ -1,6 +1,6 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {useGetMessagesQuery} from '../../api/chatApi';
-import {Chat} from '../../shared/types';
+import {Chat} from '../../shared';
 import {ChatHeader, NewMessage, SystemMessage} from '..';
 import {Message} from './Message';
 import styles from './ChatWindow.module.scss';

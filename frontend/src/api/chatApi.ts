@@ -1,5 +1,5 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
-import {Chat, Message, NewMessage} from '../shared/types';
+import {Chat, Message, NewMessage} from '../shared';
 
 export const BASE_API_URL = process.env.REACT_APP_API_URL;
 const getChatUrl = (chatId: string) => `chats/${chatId}/messages`;

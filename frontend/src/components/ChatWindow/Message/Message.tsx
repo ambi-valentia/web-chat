@@ -1,4 +1,4 @@
-import {Message as MessageType} from '../../../shared/types';
+import {Message as MessageType} from '../../../shared';
 import {Avatar, Time} from '../..';
 import styles from './Message.module.scss';
 

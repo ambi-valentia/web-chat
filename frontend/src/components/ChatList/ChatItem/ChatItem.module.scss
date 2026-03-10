@@ -17,13 +17,14 @@
   &:hover {
     background: var(--hover);
   }
-}
 
-.chat_active {
-  &:hover {
+  &[data-active='true'] {
     background: var(--bg-accent);
+
+    &:hover {
+      background: var(--bg-accent);
+    }
   }
-  background: var(--bg-accent);
 }
 
 .content {
@@ -66,6 +67,10 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
   word-break: break-word;
+}
+
+.draft {
+  color: var(--muted-red);
 }
 
 @media screen and (max-width: 700px) {

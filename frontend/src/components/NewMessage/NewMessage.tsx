@@ -1,10 +1,9 @@
-import {Dispatch, SetStateAction, useLayoutEffect, useRef, useState} from 'react';
+import {Dispatch, SetStateAction, useRef, useState} from 'react';
 import {usePostMessageMutation} from '../../api/chatApi';
 import {ReactComponent as SendIcon} from '../../assets/Filled.svg';
-import {useResizeInput} from './hooks';
+import {removeChatDraft, setChatDraft} from '../../shared';
+import {useChatDrafts, useResizeInput} from './hooks';
 import styles from './NewMessage.module.scss';
-
-const MAX_INPUT_HEIGHT = 250;
 
 type Props = {
   chatId: string;
@@ -16,17 +15,8 @@ export const NewMessage = ({chatId, setNewMessageFlag}: Props) => {
   const [message, setMessage] = useState('');
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-  const {resizeInput, resetInputHeight} = useResizeInput({ref: textareaRef});
-
-  useLayoutEffect(() => setMessage(''), [chatId]);
-
-  useLayoutEffect(() => {
-    if (!message.trim()) {
-      resetInputHeight();
-      return;
-    }
-    resizeInput({maxHeight: MAX_INPUT_HEIGHT});
-  }, [message, resetInputHeight, resizeInput]);
+  useResizeInput({ref: textareaRef, message});
+  useChatDrafts(chatId, setMessage);
 
   const handleSendMessage = async (e?: React.KeyboardEvent<HTMLTextAreaElement>) => {
     e?.preventDefault();
@@ -36,6 +26,7 @@ export const NewMessage = ({chatId, setNewMessageFlag}: Props) => {
     await sendMessage({chatId, text: message.trim(), created_at: new Date().getTime()});
     setMessage('');
     setNewMessageFlag(true);
+    removeChatDraft(chatId);
   };
 
   return (
@@ -46,6 +37,7 @@ export const NewMessage = ({chatId, setNewMessageFlag}: Props) => {
         value={message}
         onChange={e => {
           setMessage(e.target.value);
+          setChatDraft(chatId, e.target.value);
         }}
         onKeyDown={e => {
           if (e.key === 'Enter' && !e.shiftKey) {
